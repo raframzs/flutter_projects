@@ -30,7 +30,7 @@ class AppRoutes {
         route: 'cards',
         icon: Icons.card_giftcard,
         name: 'Cards',
-        screen: const Card()),
+        screen: const CardScreen()),
     MenuOption(
         route: 'alert',
         icon: Icons.lock_clock,

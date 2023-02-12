@@ -1,3 +1,4 @@
+import 'package:fl_components/models/models.dart';
 import 'package:fl_components/router/app_routes.dart';
 
 import 'package:flutter/material.dart';
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      initialRoute: AppRoutes.initialRoute,
-      routes: AppRoutes.getMenuRoutes(),
+      initialRoute: AppRoutes.initialRoute, // default route
+      routes: AppRoutes.getMenuRoutes(), // list of routes
       onGenerateRoute: AppRoutes.onGenerateRoute,
+      theme: AppTheme.getTheme(), // if wrong route
     );
   }
 }
