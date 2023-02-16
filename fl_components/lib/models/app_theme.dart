@@ -5,7 +5,7 @@ class AppTheme {
   static const secondaryColor = Colors.black;
 
   static ThemeData getTheme() {
-    return ThemeData.light().copyWith(
+    return ThemeData.dark().copyWith(
         appBarTheme: const AppBarTheme(
       color: primary,
       elevation: 0,
