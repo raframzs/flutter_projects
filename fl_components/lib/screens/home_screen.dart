@@ -18,6 +18,7 @@ class HomeScreen extends StatelessWidget {
                   leading: Icon(
                     routes[index].icon,
                     color: AppTheme.primary,
+                    size: 35,
                   ),
                   title: Text(routes[index].name),
                   onTap: () {

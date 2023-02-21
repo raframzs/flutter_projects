@@ -1,3 +1,5 @@
+export 'package:fl_components/screens/avatar_screen.dart';
+export 'package:flutter/material.dart';
 export 'package:fl_components/screens/home_screen.dart';
 export 'package:fl_components/screens/aler_screen.dart';
 export 'package:fl_components/screens/card_screen.dart';

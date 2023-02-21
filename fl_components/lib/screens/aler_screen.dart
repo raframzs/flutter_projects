@@ -1,10 +1,64 @@
+import 'dart:io';
+
 import 'package:fl_components/models/app_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AlertScreen extends StatelessWidget {
   const AlertScreen({Key? key}) : super(key: key);
 
-  void displayAlert(BuildContext context) {
+  void displayAlertIOS(BuildContext context) {
+    showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Row(
+              children: const [
+                Icon(
+                  Icons.warning,
+                  size: 25,
+                  color: Colors.yellow,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  'Alert!',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                )
+              ],
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Text('Hello again my princes 🌷',
+                    style: TextStyle(fontSize: 17)),
+                SizedBox(height: 10)
+              ],
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Close',
+                    style: TextStyle(fontSize: 17, color: Colors.red),
+                  )),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(fontSize: 17),
+                  ))
+            ],
+          );
+        });
+  }
+
+  void displayAlertAndroid(BuildContext context) {
     showDialog(
         context: context,
         builder: (context) {
@@ -22,7 +76,7 @@ class AlertScreen extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  'Hey Princess!',
+                  'Alert!',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 )
               ],
@@ -30,7 +84,7 @@ class AlertScreen extends StatelessWidget {
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: const [
-                Text('You must know, Rafael loves you. 🌷'),
+                Text('Hello again my princes 🌷'),
                 SizedBox(height: 10)
               ],
             ),
@@ -39,7 +93,7 @@ class AlertScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text(
+                  child: Text(
                     'Close',
                     style: TextStyle(fontSize: 17, color: AppTheme.primary),
                   ))
@@ -58,7 +112,9 @@ class AlertScreen extends StatelessWidget {
               shape: const StadiumBorder(),
               elevation: 0),
           onPressed: () {
-            displayAlert(context);
+            Platform.isAndroid
+                ? displayAlertAndroid(context)
+                : displayAlertIOS(context);
           },
           child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -66,7 +122,7 @@ class AlertScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red,
+          backgroundColor: AppTheme.primary,
           onPressed: () {
             Navigator.pop(context);
           },

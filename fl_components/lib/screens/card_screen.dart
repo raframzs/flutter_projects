@@ -1,5 +1,4 @@
-import 'package:fl_components/screens/widgets/custom_card.dart';
-import 'package:fl_components/screens/widgets/custom_card_2.dart';
+import 'package:fl_components/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class CardScreen extends StatelessWidget {

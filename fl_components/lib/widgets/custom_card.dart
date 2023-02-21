@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/app_theme.dart';
+import '../models/app_theme.dart';
 
 class CustomCardScreen extends StatelessWidget {
   final String title;
@@ -16,7 +16,7 @@ class CustomCardScreen extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            leading: const Icon(
+            leading: Icon(
               Icons.abc,
               color: AppTheme.primary,
             ),
