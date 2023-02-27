@@ -1,5 +1,6 @@
 import 'package:fl_components/models/models.dart';
 import 'package:fl_components/screens/animated_screen.dart';
+import 'package:fl_components/screens/inputs_screen.dart';
 import 'package:fl_components/screens/screens.dart';
 
 class AppRoutes {
@@ -40,6 +41,11 @@ class AppRoutes {
         icon: Icons.play_circle_outline_rounded,
         name: 'Animated Screen',
         screen: const AnimatedScreen()),
+    MenuOption(
+        route: 'inputs',
+        icon: Icons.input_outlined,
+        name: 'Inputs and Text Screen',
+        screen: const InputsScreen()),
   ];
 
   static Map<String, Widget Function(BuildContext)> getMenuRoutes() {
