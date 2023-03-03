@@ -1,8 +1,21 @@
 import 'package:fl_components/screens/screens.dart';
 
 class CustomInputField extends StatelessWidget {
+  final String? hintText;
+  final String? helperText;
+  final String? labelText;
+  final IconData? icon;
+  final TextInputType? textInputType;
+  final bool? obscureText;
+
   const CustomInputField({
     super.key,
+    this.hintText,
+    this.helperText,
+    this.labelText,
+    this.icon,
+    this.textInputType,
+    this.obscureText,
   });
 
   @override
@@ -11,6 +24,8 @@ class CustomInputField extends StatelessWidget {
       // autofocus: true,
       textCapitalization: TextCapitalization.words,
       initialValue: '',
+      obscureText: obscureText ?? false,
+      keyboardType: textInputType ?? TextInputType.text,
       // ignore: avoid_print
       onChanged: (value) => print(value),
       validator: (value) {
@@ -18,14 +33,11 @@ class CustomInputField extends StatelessWidget {
         return value.length < 3 ? "Min lenght is 3" : null;
       },
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      decoration: const InputDecoration(
-          icon: Icon(
-            Icons.usb,
-            size: 35,
-          ),
-          hintText: 'Name of the user',
-          helperText: 'Minimun 3 characters',
-          labelText: 'Name'),
+      decoration: InputDecoration(
+          icon: icon != null ? Icon(icon) : null,
+          hintText: hintText ?? 'Enter a value',
+          helperText: helperText ?? 'Super useful',
+          labelText: labelText ?? 'Field'),
     );
   }
 }
