@@ -50,7 +50,12 @@ class AppRoutes {
         route: 'slider',
         icon: Icons.slideshow_sharp,
         name: 'Slider & Checks',
-        screen: const SliderScreen())
+        screen: const SliderScreen()),
+    MenuOption(
+        route: 'listviewbuilder',
+        icon: Icons.play_arrow_outlined,
+        name: 'ListViewBuilder & Pull To Refresh',
+        screen: const ListViewBuilderScreen())
   ];
 
   static Map<String, Widget Function(BuildContext)> getMenuRoutes() {
