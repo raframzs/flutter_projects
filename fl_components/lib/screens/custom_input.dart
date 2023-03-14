@@ -8,6 +8,9 @@ class CustomInputField extends StatelessWidget {
   final TextInputType? textInputType;
   final bool? obscureText;
 
+  final String formProperty;
+  final Map<String, dynamic> formValues;
+
   const CustomInputField({
     super.key,
     this.hintText,
@@ -16,18 +19,18 @@ class CustomInputField extends StatelessWidget {
     this.icon,
     this.textInputType,
     this.obscureText,
+    required this.formProperty,
+    required this.formValues,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // autofocus: true,
       textCapitalization: TextCapitalization.words,
       initialValue: '',
       obscureText: obscureText ?? false,
       keyboardType: textInputType ?? TextInputType.text,
-      // ignore: avoid_print
-      onChanged: (value) => print(value),
+      onChanged: (value) => formValues[formProperty] = value,
       validator: (value) {
         if (value == null) return "Field is Required";
         return value.length < 3 ? "Min lenght is 3" : null;
@@ -36,8 +39,8 @@ class CustomInputField extends StatelessWidget {
       decoration: InputDecoration(
           icon: icon != null ? Icon(icon) : null,
           hintText: hintText ?? 'Enter a value',
-          helperText: helperText ?? 'Super useful',
-          labelText: labelText ?? 'Field'),
+          helperText: helperText ?? '',
+          labelText: labelText ?? ''),
     );
   }
 }

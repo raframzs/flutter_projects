@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:university_blog/screens/login.dart';
+import 'package:university_blog/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-    );
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.getTheme(),
+        home: Scaffold(
+            resizeToAvoidBottomInset: true,
+            appBar: AppBar(
+              title: const Text('Login'),
+            ),
+            body: const Login()));
   }
 }
