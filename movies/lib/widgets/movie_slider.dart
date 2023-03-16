@@ -5,7 +5,7 @@ class MovieSliderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 260,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -45,6 +45,7 @@ class _MoviePoster extends StatelessWidget {
               placeholder: AssetImage('assets/no-image.jpg'),
               image: NetworkImage('https://via.placeholder.com/300x400'),
               fit: BoxFit.cover,
+              height: 170,
             ),
           ),
         ),
