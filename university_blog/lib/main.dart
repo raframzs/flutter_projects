@@ -15,11 +15,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: AppTheme.getTheme(),
-        home: Scaffold(
-            resizeToAvoidBottomInset: true,
-            appBar: AppBar(
-              title: const Text('Login'),
-            ),
-            body: const Login()));
+        home: const Scaffold(resizeToAvoidBottomInset: true, body: Login()));
   }
 }
