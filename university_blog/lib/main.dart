@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_blog/screens/home.dart';
 import 'package:university_blog/screens/login.dart';
 import 'package:university_blog/theme/app_theme.dart';
 
@@ -13,8 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.getTheme(),
-        home: const Scaffold(resizeToAvoidBottomInset: true, body: Login()));
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.getTheme(),
+      home: const Scaffold(resizeToAvoidBottomInset: true, body: Login()),
+      routes: {
+        'home': (context) => const HomeScreen(),
+      },
+    );
   }
 }

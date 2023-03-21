@@ -38,13 +38,11 @@ class _LoginForm extends StatelessWidget {
           obscureText: true,
         ),
         Button(
-            height: 100,
-            width: 480,
-            padding: const EdgeInsets.all(20),
-            onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                )),
+          height: 100,
+          width: 480,
+          padding: const EdgeInsets.all(20),
+          onPressed: () => Navigator.pushNamed(context, 'home'),
+        ),
         TextButton(
           onPressed: () {},
           child: Text(
