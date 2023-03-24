@@ -23,16 +23,16 @@ class BlogsProvider extends ChangeNotifier {
   List<BlogFeed> toBlogFeeds() {
     List<BlogFeed> response = [];
     int i = 0;
-    for (String photo in avatares) {
+    for (Blog blog in data) {
       response.add(BlogFeed(
-          url: photo,
-          userName: names[i],
-          userNick: usernames[i],
-          content: contents[i],
-          curse: curseNames[i],
-          teacher: teacherNames[i],
-          likes: likes[i],
-          dislikes: dislikes[i]));
+          url: avatares[i],
+          userName: blog.user.name,
+          userNick: blog.user.username,
+          content: blog.content,
+          curse: blog.curse.name,
+          teacher: blog.curse.teachers[0].name,
+          likes: blog.stats.likes,
+          dislikes: blog.stats.down));
       i++;
     }
     return response;
@@ -45,68 +45,5 @@ class BlogsProvider extends ChangeNotifier {
     'https://cdn4.iconfinder.com/data/icons/cool-avatars-2/190/00-13-512.png',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfYPF_Y7gsTtNReC0hxDfRrNG2tszt5asZfPkd_M9sSk-PDATrALB938Hy4D35Arjljhw&usqp=CAU',
     'https://www.pngkey.com/png/detail/57-575867_avatar-cartoon-eyes-female-funny-hair-how-to.png',
-  ];
-
-  List<String> names = [
-    'RAFAEL RAMIREZ',
-    'JULIAN JIMENEZ',
-    'DANIELA CHICAIZA',
-    'MIGUEL CONTRERAS',
-    'ANGEL LIZARAZO',
-    'NATALIA RODRIGUEZ',
-  ];
-
-  List<String> usernames = [
-    'raframzs',
-    'jucajiro',
-    'daniloquita',
-    'miguelito777',
-    'angeloflife',
-    'natituipan',
-  ];
-
-  List<String> contents = [
-    'Me la super suda',
-    'Eu incididunt occaecat aliqua ullamco ullamco qui. Et commodo minim commodo fugiat in sint nisi in. Reprehenderit eu velit voluptate consectetur labore excepteur aliqua labore nulla proident officia adipisicing voluptate. Sint qui velit cupidatat deserunt pariatur duis adipisicing reprehenderit labore reprehenderit adipisicing cillum ex. Exercitation nisi nulla consectetur in reprehenderit dolore adipisicing consequat veniam nostrud id Lorem elit irure. Nostrud non incididunt mollit magna est sit quis labore.',
-    'Anim ad et dolore culpa proident ut anim.',
-    'Me siento con ganas de llorar',
-    'No inscriban con el es trampa',
-    'Lo quiero con todo mi corazón',
-  ];
-
-  List<String> curseNames = [
-    'PROGRAMACIÓN MOVIL',
-    'GERENCIA ESTRATEGICA',
-    'BUSSINES ANALYTICS',
-    'INVESTIGACIÓN II',
-    'PROGRAMACIÓN LINEAL',
-    'MACHINE LEARNING',
-  ];
-
-  List<String> teacherNames = [
-    'RICARDO SANTA',
-    'JAIRO CORTEZ',
-    'ISMAEL RODRIGUEZ',
-    'NEREIDA PALMAR',
-    'HUMBERTO CUEVAS',
-    'GUIDO CONTRERAS',
-  ];
-
-  List<int> likes = [
-    234,
-    3,
-    9,
-    0,
-    26,
-    89,
-  ];
-
-  List<int> dislikes = [
-    0,
-    20,
-    76,
-    4,
-    0,
-    1,
   ];
 }
