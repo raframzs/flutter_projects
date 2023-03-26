@@ -18,13 +18,10 @@ class CountdownClock extends StatelessWidget {
   final Function nextPage;
   @override
   Widget build(BuildContext context) {
-    double remaining = 0;
     return Countdown(
       controller: controller,
       seconds: 5,
       build: (_, double time) {
-        remaining = time;
-        print(remaining);
         return Text(
           time.toString(),
           style: TextStyle(

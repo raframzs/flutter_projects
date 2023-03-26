@@ -160,7 +160,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
   void setScore(Question question, double time) {
     if (question.selected!.isCorrect) _score = _score + time;
-    print('Puntaje actual es: $_score');
   }
 }
 
