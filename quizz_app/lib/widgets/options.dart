@@ -1,30 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:timer_count_down/timer_controller.dart';
 
 import '../models/models.dart';
+import 'countdown_clock.dart';
 
 class Options extends StatelessWidget {
   final Question question;
   final ValueChanged<Option> onClickedOption;
+  final Function nextPage;
+  final PageController controller;
+  final CountdownController counterController;
   const Options(
-      {super.key, required this.question, required this.onClickedOption});
+      {super.key,
+      required this.question,
+      required this.onClickedOption,
+      required this.controller,
+      required this.nextPage,
+      required this.counterController});
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: question.options
-          .map((option) => buildOption(context, option))
-          .toList(),
+      children: [
+        Column(
+          children: question.options
+              .map((option) => buildOption(context, option))
+              .toList(),
+        ),
+        CountdownClock(
+            question: question,
+            nextPage: nextPage,
+            controller: counterController)
+      ],
     );
   }
 
-  Widget buildOption(BuildContext context, Option option) {
+  GestureDetector buildOption(BuildContext context, Option option) {
     final color = getColorForOption(option, question);
     return GestureDetector(
       onTap: () => onClickedOption(option),
       child: Container(
-        height: 50,
+        height: 60,
         padding: const EdgeInsets.all(12),
-        margin: const EdgeInsets.symmetric(vertical: 8),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         decoration: BoxDecoration(
             color: Colors.grey.shade200,
             borderRadius: BorderRadius.circular(16),
