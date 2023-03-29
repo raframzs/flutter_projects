@@ -9,7 +9,7 @@ class User {
 
   String date;
   String name;
-  int score;
+  String score;
 
   factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
 
@@ -18,7 +18,7 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => User(
         date: json["date"],
         name: json["name"],
-        score: json["score"],
+        score: json["score"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

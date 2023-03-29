@@ -47,7 +47,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
   double _scoreTime = 0;
   bool _isLocked = false;
   bool start = true;
-  User user = User(name: '', date: '', score: 0);
+  User user = User(name: '', date: '', score: '0');
   List<User> users = [];
   final CountdownController countdownController =
       CountdownController(autoStart: true);
@@ -177,7 +177,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
         _isLocked = false;
       });
     } else {
-      user.score = _score.round();
+      user.score = _score.round().toString();
       user.date = DateTime.now().toString().substring(0, 10);
       await getAllPlayers();
       await sendUserToRanking();
@@ -211,7 +211,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
       child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 20,
-            vertical: MediaQuery.of(context).size.height * 0.3,
+            vertical: MediaQuery.of(context).size.height * 0.2,
           ),
           child: Form(
               key: form,
@@ -233,18 +233,21 @@ class _QuestionScreenState extends State<QuestionScreen> {
   getAllPlayers() async {
     Uri url = Uri.https('firechat-20622.firebaseio.com', '/users.json');
     var response = await http.get(url);
-
+    List<User> tmp = [];
     var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
-    jsonResponse.forEach((key, value) => {users.add(User.fromJson(value))});
+    jsonResponse.forEach((key, value) => {tmp.add(User.fromJson(value))});
+    tmp.sort((a, b) => a.score.compareTo(b.score));
+    users.addAll(tmp.reversed.toList());
   }
 
   sendUserToRanking() async {
     Uri url = Uri.https('firechat-20622.firebaseio.com', '/users.json');
-    await http.post(url, body: <String, dynamic>{
-      "name": user.name,
-      "score": user.score.toString(),
-      "date": user.date
-    });
+    await http.post(url,
+        body: jsonEncode(<String, dynamic>{
+          "name": user.name,
+          "score": user.score.toString(),
+          "date": user.date
+        }));
   }
 }
 
