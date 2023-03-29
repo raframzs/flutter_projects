@@ -4,41 +4,54 @@ import 'package:timer_count_down/timer_controller.dart';
 import '../models/models.dart';
 import 'countdown_clock.dart';
 
-class Options extends StatelessWidget {
+class Options extends StatefulWidget {
   final Question question;
   final ValueChanged<Option> onClickedOption;
   final Function nextPage;
   final PageController controller;
   final CountdownController counterController;
+  final Function(double) setScoreFromTime;
+
   const Options(
       {super.key,
       required this.question,
       required this.onClickedOption,
       required this.controller,
       required this.nextPage,
-      required this.counterController});
+      required this.counterController,
+      required this.setScoreFromTime});
+
+  @override
+  State<Options> createState() => _OptionsState();
+}
+
+class _OptionsState extends State<Options> {
+  scoreOnTimeRunning(double time) {
+    widget.setScoreFromTime(time);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Column(
-          children: question.options
+          children: widget.question.options
               .map((option) => buildOption(context, option))
               .toList(),
         ),
         CountdownClock(
-            question: question,
-            nextPage: nextPage,
-            controller: counterController)
+            question: widget.question,
+            nextPage: widget.nextPage,
+            controller: widget.counterController,
+            scoreOnTimeRunning: scoreOnTimeRunning)
       ],
     );
   }
 
   GestureDetector buildOption(BuildContext context, Option option) {
-    final color = getColorForOption(option, question);
+    final color = getColorForOption(option, widget.question);
     return GestureDetector(
-      onTap: () => onClickedOption(option),
+      onTap: () => widget.onClickedOption(option),
       child: Container(
         height: 60,
         padding: const EdgeInsets.all(12),
@@ -51,7 +64,7 @@ class Options extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(option.text, style: Theme.of(context).textTheme.headlineSmall),
-            getIconForOption(option, question)
+            getIconForOption(option, widget.question)
           ],
         ),
       ),

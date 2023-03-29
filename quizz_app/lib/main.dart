@@ -43,6 +43,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
   late List<Question> questions;
   int _questionNumber = 1;
   double _score = 0;
+  double _scoreTime = 0;
   bool _isLocked = false;
   final CountdownController countdownController =
       CountdownController(autoStart: true);
@@ -51,6 +52,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
     super.initState();
     _controller = PageController(initialPage: 0);
     questions = widget.questions;
+  }
+
+  setScoreWhenTimeLeft(double time) {
+    _scoreTime = time;
   }
 
   @override
@@ -105,6 +110,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
         ),
         Expanded(
             child: Options(
+          setScoreFromTime: setScoreWhenTimeLeft,
           counterController: countdownController,
           nextPage: nextPage,
           controller: _controller,
@@ -117,7 +123,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
               question.selected = option;
             });
             _isLocked = question.isLocked;
-            if (question.selected!.isCorrect) _score++;
+            if (question.selected!.isCorrect) _score = _score + _scoreTime;
+            print(_score);
           },
         ))
       ],

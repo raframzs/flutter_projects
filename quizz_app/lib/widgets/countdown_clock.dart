@@ -4,24 +4,31 @@ import 'package:timer_count_down/timer_count_down.dart';
 
 import '../models/models.dart';
 
-class CountdownClock extends StatelessWidget {
+class CountdownClock extends StatefulWidget {
   final CountdownController controller;
-
-  const CountdownClock({
-    super.key,
-    required this.question,
-    required this.nextPage,
-    required this.controller,
-  });
-
   final Question question;
   final Function nextPage;
+  final Function(double) scoreOnTimeRunning;
+
+  const CountdownClock(
+      {super.key,
+      required this.question,
+      required this.nextPage,
+      required this.controller,
+      required this.scoreOnTimeRunning});
+
+  @override
+  State<CountdownClock> createState() => _CountdownClockState();
+}
+
+class _CountdownClockState extends State<CountdownClock> {
   @override
   Widget build(BuildContext context) {
     return Countdown(
-      controller: controller,
-      seconds: 5,
+      controller: widget.controller,
+      seconds: 30,
       build: (_, double time) {
+        widget.scoreOnTimeRunning(time);
         return Text(
           time.toString(),
           style: TextStyle(
@@ -30,8 +37,9 @@ class CountdownClock extends StatelessWidget {
       },
       interval: const Duration(milliseconds: 100),
       onFinished: () {
-        Option i =
-            question.options.where((element) => element.isCorrect).toList()[0];
+        Option i = widget.question.options
+            .where((element) => element.isCorrect)
+            .toList()[0];
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.blue,
@@ -63,7 +71,7 @@ class CountdownClock extends StatelessWidget {
             ),
           ),
         );
-        nextPage();
+        widget.nextPage();
       },
     );
   }
