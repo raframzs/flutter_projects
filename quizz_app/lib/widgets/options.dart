@@ -7,7 +7,7 @@ import 'countdown_clock.dart';
 class Options extends StatefulWidget {
   final Question question;
   final ValueChanged<Option> onClickedOption;
-  final Function nextPage;
+  final Function(Map<String, dynamic>? async) nextPage;
   final PageController controller;
   final CountdownController counterController;
   final Function(double) setScoreFromTime;

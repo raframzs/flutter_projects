@@ -7,7 +7,7 @@ import '../models/models.dart';
 class CountdownClock extends StatefulWidget {
   final CountdownController controller;
   final Question question;
-  final Function nextPage;
+  final Function(Map<String, dynamic>? async) nextPage;
   final Function(double) scoreOnTimeRunning;
 
   const CountdownClock(
@@ -36,7 +36,7 @@ class _CountdownClockState extends State<CountdownClock> {
         );
       },
       interval: const Duration(milliseconds: 100),
-      onFinished: () {
+      onFinished: () async {
         Option i = widget.question.options
             .where((element) => element.isCorrect)
             .toList()[0];
@@ -71,7 +71,7 @@ class _CountdownClockState extends State<CountdownClock> {
             ),
           ),
         );
-        widget.nextPage();
+        await widget.nextPage(null);
       },
     );
   }
