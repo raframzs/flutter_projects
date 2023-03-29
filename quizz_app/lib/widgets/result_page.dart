@@ -14,27 +14,69 @@ class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black38,
-              fixedSize: const Size(130, 50),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50))),
-          onPressed: null,
-          child: const Text(
-            'Intentar de Nuevo',
-            textAlign: TextAlign.center,
-          )),
-      body: Center(
-          child: Text(
-        'Obtuviste ${score.toStringAsFixed(1)} puntos!',
-        maxLines: 2,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            color: Colors.green.shade400,
-            fontSize: 40,
-            fontWeight: FontWeight.bold),
-      )),
+      appBar: AppBar(
+        title: Icon(
+          Icons.flag,
+          size: 50,
+          color: Colors.amber.shade500,
+        ),
+      ),
+      body: ListView(children: [
+        const SizedBox(
+          height: 20,
+        ),
+        const Center(
+            child: Text(
+          'Puntuaciones Actuales',
+          style: TextStyle(
+              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.grey),
+        )),
+        DataTable(
+          columns: [
+            DataColumn(
+                label: Text('Fecha',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue.shade600))),
+            DataColumn(
+                label: Text('Nombre',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue.shade600))),
+            DataColumn(
+                label: Text('Puntaje',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue.shade600))),
+          ],
+          rows: const [
+            DataRow(cells: [
+              DataCell(Text('1')),
+              DataCell(Text('Stephen')),
+              DataCell(Text('Actor')),
+            ]),
+            DataRow(cells: [
+              DataCell(Text('5')),
+              DataCell(Text('John')),
+              DataCell(Text('Student')),
+            ]),
+            DataRow(cells: [
+              DataCell(Text('10')),
+              DataCell(Text('Harry')),
+              DataCell(Text('Leader')),
+            ]),
+            DataRow(cells: [
+              DataCell(Text('15')),
+              DataCell(Text('Peter')),
+              DataCell(Text('Scientist')),
+            ]),
+          ],
+        ),
+      ]),
     );
   }
 }
+//score.toStringAsFixed(1)
