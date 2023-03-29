@@ -47,7 +47,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
   double _scoreTime = 0;
   bool _isLocked = false;
   bool start = true;
-  User user = User('', 0);
+  User user = User(name: '', date: '', score: 0);
+  List<User> users = [];
   final CountdownController countdownController =
       CountdownController(autoStart: true);
 
@@ -163,7 +164,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
         ));
   }
 
-  void nextPage(Map<String, dynamic>? userForm) {
+  void nextPage(Map<String, dynamic>? userForm) async {
     if (userForm != null) {
       user.name = userForm['name'];
     }
@@ -176,7 +177,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
         _isLocked = false;
       });
     } else {
-      user.score = _score;
+      user.score = _score.round();
+      user.date = DateTime.now().toString().substring(0, 10);
+      await getAllPlayers();
+      await sendUserToRanking();
+      users.add(user);
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -184,7 +190,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 score: _score,
                 questions: questions,
                 controller: _controller,
-                user: user),
+                user: user,
+                users: users),
           ));
     }
   }
@@ -221,6 +228,23 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 buildElevatedButton('Comenzar!', userForm),
               ]))),
     );
+  }
+
+  getAllPlayers() async {
+    Uri url = Uri.https('firechat-20622.firebaseio.com', '/users.json');
+    var response = await http.get(url);
+
+    var jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
+    jsonResponse.forEach((key, value) => {users.add(User.fromJson(value))});
+  }
+
+  sendUserToRanking() async {
+    Uri url = Uri.https('firechat-20622.firebaseio.com', '/users.json');
+    await http.post(url, body: <String, dynamic>{
+      "name": user.name,
+      "score": user.score.toString(),
+      "date": user.date
+    });
   }
 }
 
