@@ -5,11 +5,13 @@ class ResultPage extends StatelessWidget {
   final double score;
   final List<Question> questions;
   final PageController controller;
+  final User user;
   const ResultPage(
       {super.key,
       required this.score,
       required this.questions,
-      required this.controller});
+      required this.controller,
+      required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +27,10 @@ class ResultPage extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const Center(
+        Center(
             child: Text(
-          'Puntuaciones Actuales',
-          style: TextStyle(
+          'Puntuaciones Actuales de: ${user.name} y ${user.score}',
+          style: const TextStyle(
               fontSize: 30, fontWeight: FontWeight.bold, color: Colors.grey),
         )),
         DataTable(

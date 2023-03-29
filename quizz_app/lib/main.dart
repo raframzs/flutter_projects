@@ -5,6 +5,7 @@ import 'package:quizz_app/widgets/options.dart';
 import 'package:timer_count_down/timer_controller.dart';
 
 import 'models/models.dart';
+import 'widgets/custom_input.dart';
 import 'widgets/result_page.dart';
 
 import 'package:http/http.dart' as http;
@@ -45,8 +46,11 @@ class _QuestionScreenState extends State<QuestionScreen> {
   double _score = 0;
   double _scoreTime = 0;
   bool _isLocked = false;
+  bool start = true;
+  User user = User('', 0);
   final CountdownController countdownController =
       CountdownController(autoStart: true);
+
   @override
   void initState() {
     super.initState();
@@ -62,10 +66,16 @@ class _QuestionScreenState extends State<QuestionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Pregunta $_questionNumber/${questions.length}',
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
+        title: start
+            ? const Icon(
+                Icons.person,
+                size: 40,
+              )
+            : Text(
+                'Pregunta $_questionNumber/${questions.length}',
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -73,9 +83,13 @@ class _QuestionScreenState extends State<QuestionScreen> {
           Expanded(
               child: PageView.builder(
             controller: _controller,
-            itemCount: questions.length,
+            itemCount: questions.length + 1,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
+              if (index == 0) {
+                start = false;
+                return buildUserSettings(context);
+              }
               final Question question = questions[index];
               return buildQuestion(question);
             },
@@ -83,7 +97,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
           _isLocked
               ? Padding(
                   padding: const EdgeInsets.only(bottom: 120),
-                  child: buildElevatedButton(),
+                  child: buildElevatedButton(null, null),
                 )
               : const SizedBox.shrink(),
           const SizedBox(
@@ -124,29 +138,35 @@ class _QuestionScreenState extends State<QuestionScreen> {
             });
             _isLocked = question.isLocked;
             if (question.selected!.isCorrect) _score = _score + _scoreTime;
-            print(_score);
           },
         ))
       ],
     );
   }
 
-  ElevatedButton buildElevatedButton() {
+  ElevatedButton buildElevatedButton(
+      String? title, Map<String, dynamic>? formValues) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
             fixedSize: const Size(130, 50),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50))),
-        onPressed: () => nextPage(),
+        onPressed: () {
+          nextPage(formValues);
+        },
         child: Text(
-          _questionNumber < questions.length
-              ? 'Siguiente Pregunta'
-              : 'Ver Resultados',
+          title ??
+              (_questionNumber < questions.length
+                  ? 'Siguiente Pregunta'
+                  : 'Ver Resultados'),
           textAlign: TextAlign.center,
         ));
   }
 
-  void nextPage() {
+  void nextPage(Map<String, dynamic>? userForm) {
+    if (userForm != null) {
+      user.name = userForm['name'];
+    }
     if (_questionNumber < questions.length) {
       _controller.nextPage(
           duration: const Duration(milliseconds: 250),
@@ -156,17 +176,51 @@ class _QuestionScreenState extends State<QuestionScreen> {
         _isLocked = false;
       });
     } else {
+      user.score = _score;
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => ResultPage(
-                score: _score, questions: questions, controller: _controller),
+                score: _score,
+                questions: questions,
+                controller: _controller,
+                user: user),
           ));
     }
   }
 
   void setScore(Question question, double time) {
     if (question.selected!.isCorrect) _score = _score + time;
+  }
+
+  Widget buildUserSettings(BuildContext context) {
+    final GlobalKey<FormState> form = GlobalKey();
+    final Map<String, dynamic> userForm = {
+      'name': '',
+      'score': 0,
+    };
+    return SingleChildScrollView(
+      reverse: false,
+      child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: MediaQuery.of(context).size.height * 0.3,
+          ),
+          child: Form(
+              key: form,
+              child: Column(children: [
+                CustomInputField(
+                  helperText: 'Ingrese un nombre de jugador',
+                  labelText: 'Nombre',
+                  formProperty: 'name',
+                  formValues: userForm,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                buildElevatedButton('Comenzar!', userForm),
+              ]))),
+    );
   }
 }
 
