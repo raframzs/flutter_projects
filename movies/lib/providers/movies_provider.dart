@@ -11,6 +11,7 @@ class MoviesProvider extends ChangeNotifier {
 
   List<Movie> nowPlayingMovies = [];
   List<Movie> popularMovies = [];
+  Map<int, List<Cast>> cast = {};
   int _popularPage = 0;
 
   MoviesProvider() {
@@ -35,6 +36,15 @@ class MoviesProvider extends ChangeNotifier {
 
     popularMovies = [...popularMovies, ...popularResponse.results];
     notifyListeners();
+  }
+
+  Future<List<Cast>> getCreditsReponse(int movie) async {
+    if (cast.containsKey(movie)) return cast[movie]!;
+    final jsonData = await _fetchMovieList('3/movie/$movie/credits');
+    final CreditsResponse creditsResponse =
+        CreditsResponse.fromRawJson(jsonData);
+    cast[movie] = creditsResponse.cast;
+    return creditsResponse.cast;
   }
 
   Future<String> _fetchMovieList(String path, [int page = 1]) async {
