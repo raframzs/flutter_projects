@@ -19,7 +19,11 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             CardSwiperScreen(movies: moviesProvider.nowPlayingMovies),
-            const MovieSliderScreen()
+            MovieSliderScreen(
+              popularMovies: moviesProvider.popularMovies,
+              title: 'Populares!',
+              onNextPage: () => moviesProvider.getPopularMovies(),
+            )
           ],
         ),
       ),
