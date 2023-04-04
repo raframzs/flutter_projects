@@ -3,6 +3,8 @@ import 'package:movies/providers/movies_provider.dart';
 import 'package:movies/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../search/movie_search_delegate.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -13,7 +15,13 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Películas en Cine'),
         elevation: 0,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: MovieSearchDelegate());
+              },
+              icon: const Icon(Icons.search))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
