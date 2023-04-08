@@ -43,18 +43,30 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                Icons.warning,
-                color: Colors.amber,
-                size: 40,
+          title: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text('Últimos Sismos: '),
+                  Text(
+                    'CHILE',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              SizedBox(
-                width: 5,
-              ),
-              Text('Últimos Sismos')
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'By Rafael Ramirez',
+                    style: TextStyle(
+                        fontSize: 13,
+                        letterSpacing: 2,
+                        color: Colors.grey.shade300),
+                  )
+                ],
+              )
             ],
           ),
           elevation: 0,
