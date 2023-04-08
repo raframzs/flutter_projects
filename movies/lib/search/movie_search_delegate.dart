@@ -52,11 +52,11 @@ class MovieSearchDelegate extends SearchDelegate {
   }
 
   Center _emptyContainer() {
-    return const Center(
+    return Center(
         child: Icon(
       Icons.movie_creation_outlined,
-      color: Colors.black38,
-      size: 100,
+      color: Colors.red.shade600,
+      size: 150,
     ));
   }
 }

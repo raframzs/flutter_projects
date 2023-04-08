@@ -14,13 +14,31 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Column(children: [
-          const Text('Películas en Cine'),
+          Row(
+            children: const [
+              Text('Películas en Cine: '),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                'Cartelera',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
           const SizedBox(
             height: 5,
           ),
-          Text(
-            'By Rafael Ramirez',
-            style: TextStyle(color: Colors.grey.shade300, letterSpacing: 2),
+          Row(
+            children: [
+              Text(
+                'By Rafael Ramirez',
+                style: TextStyle(
+                    color: Colors.grey.shade300,
+                    letterSpacing: 1,
+                    fontSize: 15),
+              )
+            ],
           )
         ]),
         elevation: 0,
