@@ -27,6 +27,14 @@ class Event {
   Magnitude magnitude;
   String geoReference;
 
+  Uri get mapUri {
+    return Uri.http('sismologia.cl', mapUrl.substring(21));
+  }
+
+  Uri get urlUri {
+    return Uri.http('sismologia.cl', url.substring(21));
+  }
+
   factory Event.fromRawJson(String str) => Event.fromJson(json.decode(str));
 
   factory Event.fromJson(Map<String, dynamic> json) => Event(
