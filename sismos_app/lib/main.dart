@@ -67,9 +67,7 @@ class MainApp extends StatelessWidget {
 }
 
 class _CustomTitle extends StatelessWidget {
-  const _CustomTitle({
-    super.key,
-  });
+  const _CustomTitle();
 
   @override
   Widget build(BuildContext context) {

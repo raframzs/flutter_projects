@@ -13,7 +13,16 @@ class HomeScreen extends StatelessWidget {
     final moviesProvider = Provider.of<MoviesProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Películas en Cine'),
+        title: Column(children: [
+          const Text('Películas en Cine'),
+          const SizedBox(
+            height: 5,
+          ),
+          Text(
+            'By Rafael Ramirez',
+            style: TextStyle(color: Colors.grey.shade300, letterSpacing: 2),
+          )
+        ]),
         elevation: 0,
         actions: [
           IconButton(
