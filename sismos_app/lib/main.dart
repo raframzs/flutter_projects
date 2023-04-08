@@ -43,32 +43,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('Últimos Sismos: '),
-                  Text(
-                    'CHILE',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'By Rafael Ramirez',
-                    style: TextStyle(
-                        fontSize: 13,
-                        letterSpacing: 2,
-                        color: Colors.grey.shade300),
-                  )
-                ],
-              )
-            ],
-          ),
+          title: const _CustomTitle(),
           elevation: 0,
           backgroundColor: AppTheme.primary,
         ),
@@ -87,6 +62,40 @@ class MainApp extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+}
+
+class _CustomTitle extends StatelessWidget {
+  const _CustomTitle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text('Últimos Sismos: '),
+            Text(
+              'CHILE',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'By Rafael Ramirez',
+              style: TextStyle(
+                  fontSize: 13, letterSpacing: 2, color: Colors.grey.shade300),
+            )
+          ],
+        )
+      ],
     );
   }
 }

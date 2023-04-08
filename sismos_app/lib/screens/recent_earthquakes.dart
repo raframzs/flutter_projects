@@ -18,12 +18,11 @@ class RecentEarthquakes extends StatelessWidget {
       itemCount: events.length,
       itemBuilder: (_, index) {
         final Event event = events[index];
-        var date = DateFormat.yMMMMd().format(event.localDate);
         return Container(
           width: double.infinity,
           height: 200,
           margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-          child: _EarthquakeCard(event: event, date: date),
+          child: _EarthquakeCard(event: event),
         );
       },
     );
@@ -33,11 +32,9 @@ class RecentEarthquakes extends StatelessWidget {
 class _EarthquakeCard extends StatelessWidget {
   const _EarthquakeCard({
     required this.event,
-    required this.date,
   });
 
   final Event event;
-  final String date;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +45,7 @@ class _EarthquakeCard extends StatelessWidget {
           children: [
             _Indicators(event: event),
             _LinksTo(event: event),
-            Data(event: event, date: date),
+            Data(event: event),
           ],
         ),
         const Divider(
