@@ -18,31 +18,31 @@ class CardItems extends StatelessWidget {
           _SingleCardItem(
             colors: [Color(0xffb18cfd), Color(0xff7f57f7)],
             iconData: Icons.bus_alert,
-            label: 'Transport',
+            label: 'Transporte',
           ),
         ]),
         TableRow(children: [
           _SingleCardItem(
             colors: [Color(0xfffe99f3), Color(0xffff3ed6)],
             iconData: Icons.shopify,
-            label: 'Shopping',
+            label: 'Compras',
           ),
           _SingleCardItem(
             colors: [Color(0xfffecd9b), Color(0xfff68b48)],
             iconData: Icons.note_sharp,
-            label: 'Bills',
+            label: 'Deudas',
           ),
         ]),
         TableRow(children: [
           _SingleCardItem(
             colors: [Color(0xff80aaff), Color(0xff4f70fe)],
             iconData: Icons.movie,
-            label: 'Entertainament',
+            label: 'Entretenimiento',
           ),
           _SingleCardItem(
             colors: [Color(0xff88fd8c), Color(0xff25dd54)],
             iconData: Icons.local_grocery_store,
-            label: 'Grocery',
+            label: 'Supermercado',
           ),
         ]),
         TableRow(children: [
@@ -52,7 +52,7 @@ class CardItems extends StatelessWidget {
               Color.fromARGB(255, 202, 207, 35)
             ],
             iconData: Icons.yard,
-            label: 'Flowers',
+            label: 'Flores',
           ),
           _SingleCardItem(
             colors: [
@@ -60,7 +60,7 @@ class CardItems extends StatelessWidget {
               Color.fromARGB(255, 255, 51, 51)
             ],
             iconData: Icons.ramen_dining_sharp,
-            label: 'Food',
+            label: 'Comida',
           ),
         ])
       ],

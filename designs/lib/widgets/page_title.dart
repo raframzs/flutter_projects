@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class PageTitle extends StatelessWidget {
@@ -16,7 +15,7 @@ class PageTitle extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                'Classify Transaction',
+                'Clasifique su Transacción',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -25,8 +24,9 @@ class PageTitle extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Text('Classify this transaction into a particular category',
-                  style: TextStyle(fontSize: 16, color: Colors.white)),
+              Text('By Rafael Ramirez',
+                  style: TextStyle(
+                      fontSize: 16, color: Color.fromARGB(255, 218, 218, 218))),
             ]),
       ),
     );
