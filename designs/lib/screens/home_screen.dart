@@ -21,7 +21,7 @@ class _HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(children: const [PageTitle()]),
+      child: Column(children: const [PageTitle(), CardItems()]),
     );
   }
 }
