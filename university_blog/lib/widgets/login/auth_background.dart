@@ -85,6 +85,7 @@ class _Logo extends StatelessWidget {
       padding: EdgeInsets.only(top: 80),
       child: CircleAvatar(
         maxRadius: 50,
+        backgroundColor: Colors.black,
         backgroundImage: AssetImage('assets/logo.png'),
       ),
     );
