@@ -8,7 +8,7 @@ class BlogsProvider extends ChangeNotifier {
   List<Blog> data = [];
 
   BlogsProvider() {
-    getBlogs();
+    //getBlogs();
   }
 
   getBlogs() async {

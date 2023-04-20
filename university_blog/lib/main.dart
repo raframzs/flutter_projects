@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_blog/providers/blogs_provider.dart';
-import 'package:university_blog/screens/home.dart';
-import 'package:university_blog/screens/login.dart';
+import 'package:university_blog/screens/home_screen.dart';
+import 'package:university_blog/screens/login_screen.dart';
 import 'package:university_blog/theme/app_theme.dart';
 
 void main() {
@@ -35,9 +35,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.getTheme(),
-      home: const Scaffold(resizeToAvoidBottomInset: true, body: Login()),
+      initialRoute: 'login',
       routes: {
         'home': (context) => const HomeScreen(),
+        'login': (context) => const LoginScreen(),
       },
     );
   }

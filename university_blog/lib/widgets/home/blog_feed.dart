@@ -10,7 +10,9 @@ class BlogFeed extends StatelessWidget {
   final String teacher;
   final int likes;
   final int dislikes;
+
   const BlogFeed({
+    super.key,
     required this.url,
     required this.userName,
     required this.userNick,

@@ -20,6 +20,7 @@ class HomeScreen extends StatelessWidget {
             Icons.menu,
             color: Colors.white,
           ),
+          // ignore: avoid_returning_null_for_void
           onPressed: () => null,
         ),
         body: ListView(
