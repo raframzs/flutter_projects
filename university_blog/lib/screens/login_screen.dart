@@ -121,10 +121,10 @@ class _LoginButton extends StatelessWidget {
               FocusScope.of(context).unfocus();
               if (loginForm.isValidForm()) {
                 loginForm.isLoading = true;
+                await Future.delayed(const Duration(seconds: 2));
+                // ignore: use_build_context_synchronously
+                Navigator.pushReplacementNamed(context, 'home');
               }
-              await Future.delayed(const Duration(seconds: 2));
-              // ignore: use_build_context_synchronously
-              Navigator.pushReplacementNamed(context, 'home');
             },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 0,

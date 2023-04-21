@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:university_blog/models/blog.dart';
-import 'package:university_blog/widgets/widgets.dart';
 
 class BlogsProvider extends ChangeNotifier {
   final String _baseUrl = 'localhost:8080';
@@ -12,30 +11,13 @@ class BlogsProvider extends ChangeNotifier {
   }
 
   getBlogs() async {
-    var url = Uri.http(_baseUrl, 'blogs');
+    /* var url = Uri.http(_baseUrl, 'blogs');
     final response = await http.get(url);
     final BlogsResponse blogsResponse =
         BlogsResponse.fromRawJson(response.body);
 
-    data = blogsResponse.data;
-  }
-
-  List<BlogFeed> toBlogFeeds() {
-    List<BlogFeed> response = [];
-    int i = 0;
-    for (Blog blog in data) {
-      response.add(BlogFeed(
-          url: avatares[i],
-          userName: blog.user.name,
-          userNick: blog.user.username,
-          content: blog.content,
-          curse: blog.curse.name,
-          teacher: blog.curse.teachers[0].name,
-          likes: blog.stats.likes,
-          dislikes: blog.stats.down));
-      i++;
-    }
-    return response;
+    data = blogsResponse.data; */
+    await Future.delayed(const Duration(seconds: 2));
   }
 
   List<String> avatares = [

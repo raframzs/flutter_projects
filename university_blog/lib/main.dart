@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_blog/providers/blogs_provider.dart';
-import 'package:university_blog/screens/home_screen.dart';
-import 'package:university_blog/screens/login_screen.dart';
 import 'package:university_blog/theme/app_theme.dart';
+
+import 'screens/screens.dart';
 
 void main() {
   runApp(const AppState());
@@ -35,10 +35,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.getTheme(),
-      initialRoute: 'login',
+      initialRoute: 'home',
       routes: {
         'home': (context) => const HomeScreen(),
         'login': (context) => const LoginScreen(),
+        'create': (context) => const CreateBlogScreen(),
+        'search': (context) => const SearchScreen(),
       },
     );
   }
