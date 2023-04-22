@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:university_blog/providers/blogs_provider.dart';
 import 'package:university_blog/theme/app_theme.dart';
 
+import 'providers/providers.dart';
 import 'screens/screens.dart';
 
 void main() {
@@ -15,12 +15,7 @@ class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => BlogsProvider(),
-          lazy: false,
-        )
-      ],
+      providers: [ChangeNotifierProvider(create: (context) => BlogsProvider())],
       child: const MyApp(),
     );
   }
@@ -29,18 +24,17 @@ class AppState extends StatelessWidget {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.getTheme(),
-      initialRoute: 'home',
+      initialRoute: Routes.homeScreen,
       routes: {
-        'home': (context) => const HomeScreen(),
-        'login': (context) => const LoginScreen(),
-        'create': (context) => const CreateBlogScreen(),
-        'search': (context) => const SearchScreen(),
+        Routes.homeScreen: (context) => const HomeScreen(),
+        Routes.loginScreen: (context) => const LoginScreen(),
+        Routes.createScreen: (context) => const CreateBlogScreen(),
+        Routes.searchScreen: (context) => const SearchScreen(),
       },
     );
   }

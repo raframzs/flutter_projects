@@ -30,27 +30,27 @@ class _RedBox extends StatelessWidget {
         Positioned(
           top: 90,
           left: 30,
-          child: _RedCircles(),
+          child: _BackgroundCircle(),
         ),
         Positioned(
           top: 20,
           left: 300,
-          child: _RedCircles(),
+          child: _BackgroundCircle(),
         ),
         Positioned(
           top: 190,
           left: 180,
-          child: _RedCircles(),
+          child: _BackgroundCircle(),
         ),
         Positioned(
           top: 290,
           left: 5,
-          child: _RedCircles(),
+          child: _BackgroundCircle(),
         ),
         Positioned(
           top: 250,
           left: 340,
-          child: _RedCircles(),
+          child: _BackgroundCircle(),
         ),
       ]),
     );
@@ -61,8 +61,8 @@ class _RedBox extends StatelessWidget {
           colors: [Color.fromARGB(255, 225, 40, 62), Color(0xffe2001a)]));
 }
 
-class _RedCircles extends StatelessWidget {
-  const _RedCircles();
+class _BackgroundCircle extends StatelessWidget {
+  const _BackgroundCircle();
 
   @override
   Widget build(BuildContext context) {
@@ -79,14 +79,16 @@ class _RedCircles extends StatelessWidget {
 class _Logo extends StatelessWidget {
   const _Logo();
 
+  final String logoPath = 'assets/logo.png';
+
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(top: 80),
+    return Padding(
+      padding: const EdgeInsets.only(top: 80),
       child: CircleAvatar(
         maxRadius: 50,
-        backgroundColor: Color(0xffc19900),
-        backgroundImage: AssetImage('assets/logo.png'),
+        backgroundColor: const Color(0xffc19900),
+        backgroundImage: AssetImage(logoPath),
       ),
     );
   }

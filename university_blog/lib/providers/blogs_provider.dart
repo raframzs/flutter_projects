@@ -1,31 +1,32 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:university_blog/models/blog.dart';
+
+import '../models/models.dart';
 
 class BlogsProvider extends ChangeNotifier {
-  final String _baseUrl = 'localhost:8080';
-  List<Blog> data = [];
+  final String _baseUrl = 'university-blog-c1d86-default-rtdb.firebaseio.com';
+  final List<Blog> blogs = [];
+  bool isLoading = false;
 
   BlogsProvider() {
-    //getBlogs();
+    getBlogs();
   }
 
-  getBlogs() async {
-    /* var url = Uri.http(_baseUrl, 'blogs');
+  Future<List<Blog>> getBlogs() async {
+    isLoading = true;
+    notifyListeners();
+    var url = Uri.https(_baseUrl, '/blogs.json');
     final response = await http.get(url);
-    final BlogsResponse blogsResponse =
-        BlogsResponse.fromRawJson(response.body);
-
-    data = blogsResponse.data; */
-    await Future.delayed(const Duration(seconds: 2));
+    final Map<String, dynamic> blogsMap = json.decode(response.body);
+    blogsMap.forEach((key, value) {
+      final tmpBlog = Blog.fromJson(value);
+      tmpBlog.id = key;
+      blogs.add(tmpBlog);
+    });
+    isLoading = false;
+    notifyListeners();
+    return blogs;
   }
-
-  List<String> avatares = [
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_a4ESrgV1fyKimFM4LDdSFJodqGzUDlLaPA&usqp=CAU',
-    'https://www.pngitem.com/pimgs/m/137-1370135_funny-png-avatar-funny-avatar-icons-transparent-png.png',
-    'https://cdn3.iconfinder.com/data/icons/cool-avatars-2/190/00-07-2-512.png',
-    'https://cdn4.iconfinder.com/data/icons/cool-avatars-2/190/00-13-512.png',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfYPF_Y7gsTtNReC0hxDfRrNG2tszt5asZfPkd_M9sSk-PDATrALB938Hy4D35Arjljhw&usqp=CAU',
-    'https://www.pngkey.com/png/detail/57-575867_avatar-cartoon-eyes-female-funny-hair-how-to.png',
-  ];
 }

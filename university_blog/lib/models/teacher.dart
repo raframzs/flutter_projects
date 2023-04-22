@@ -2,29 +2,36 @@ import 'dart:convert';
 
 class Teacher {
   Teacher({
-    required this.id,
-    required this.created,
-    required this.name,
-    required this.surname,
-    required this.gender,
-    required this.antiquity,
+    required this.fullName,
+    required this.genero,
+    required this.master,
+    required this.profession,
+    required this.seniorityYears,
   });
 
-  int id;
-  DateTime created;
-  String name;
-  String surname;
-  String gender;
-  int antiquity;
+  final String fullName;
+  final String genero;
+  final String master;
+  final String profession;
+  final int seniorityYears;
 
   factory Teacher.fromRawJson(String str) => Teacher.fromJson(json.decode(str));
 
+  String toRawJson() => json.encode(toJson());
+
   factory Teacher.fromJson(Map<String, dynamic> json) => Teacher(
-        id: json["id"],
-        created: DateTime.parse(json["created"]),
-        name: json["name"],
-        surname: json["surname"],
-        gender: json["gender"],
-        antiquity: json["antiquity"],
+        fullName: json["full_name"],
+        genero: json["genero"],
+        master: json["master"],
+        profession: json["profession"],
+        seniorityYears: json["seniority_years"],
       );
+
+  Map<String, dynamic> toJson() => {
+        "full_name": fullName,
+        "genero": genero,
+        "master": master,
+        "profession": profession,
+        "seniority_years": seniorityYears,
+      };
 }

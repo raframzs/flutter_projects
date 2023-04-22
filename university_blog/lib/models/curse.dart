@@ -1,30 +1,37 @@
 import 'dart:convert';
 
-import 'package:university_blog/models/models.dart';
-
 class Curse {
   Curse({
-    required this.id,
-    required this.created,
+    required this.career,
+    required this.isElective,
+    required this.level,
     required this.name,
-    required this.program,
-    required this.teachers,
+    required this.teacher,
   });
 
-  int id;
-  DateTime created;
-  String name;
-  String program;
-  List<Teacher> teachers;
+  final String career;
+  final bool isElective;
+  final String level;
+  final String name;
+  final String teacher;
 
   factory Curse.fromRawJson(String str) => Curse.fromJson(json.decode(str));
 
+  String toRawJson() => json.encode(toJson());
+
   factory Curse.fromJson(Map<String, dynamic> json) => Curse(
-        id: json["id"],
-        created: DateTime.parse(json["created"]),
+        career: json["career"],
+        isElective: json["is_elective"],
+        level: json["level"],
         name: json["name"],
-        program: json["program"],
-        teachers: List<Teacher>.from(
-            json["teachers"].map((x) => Teacher.fromJson(x))),
+        teacher: json["teacher"],
       );
+
+  Map<String, dynamic> toJson() => {
+        "career": career,
+        "is_elective": isElective,
+        "level": level,
+        "name": name,
+        "teacher": teacher,
+      };
 }

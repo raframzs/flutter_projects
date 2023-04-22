@@ -1,9 +1,10 @@
 import 'package:circular_menu/circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:university_blog/models/blog.dart';
 
-import 'package:university_blog/providers/blogs_provider.dart';
 import 'package:university_blog/theme/app_theme.dart';
+import '../providers/providers.dart';
 import '../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,39 +13,29 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BlogsProvider provider = Provider.of<BlogsProvider>(context);
+    if (provider.isLoading) {
+      return const HomeBackground(
+          iconsColor: Colors.black12,
+          child: SizedBox(
+            height: 100,
+            width: 100,
+            child: CircularProgressIndicator(
+              strokeWidth: 10,
+              color: AppTheme.primary,
+            ),
+          ));
+    }
+
     return Scaffold(
         appBar: const BlogAppBar(),
         floatingActionButton: const _UserActionsButton(),
-        body: FutureBuilder(
-          future: provider.getBlogs(),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.hasData) {
-              return const HomeBackground(
-                  iconsColor: Colors.black12,
-                  child: SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 10,
-                      color: AppTheme.primary,
-                    ),
-                  ));
-            }
-
-            return HomeBackground(
-                iconsColor: AppTheme.primary,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: const [
-                      BlogCard(),
-                      BlogCard(),
-                      BlogCard(),
-                      BlogCard(),
-                    ],
-                  ),
-                ));
-          },
-        ));
+        body: HomeBackground(
+            iconsColor: AppTheme.primary,
+            child: SingleChildScrollView(
+              child: Column(
+                children: provider.blogs.map((e) => BlogCard(blog: e)).toList(),
+              ),
+            )));
   }
 }
 
@@ -71,7 +62,7 @@ class _UserActionsButtonState extends State<_UserActionsButton> {
               color: AppTheme.primary,
               onTap: () {
                 setState(() {
-                  Navigator.pushNamed(context, 'create');
+                  Navigator.pushNamed(context, Routes.createScreen);
                 });
               }),
           CircularMenuItem(
@@ -79,12 +70,12 @@ class _UserActionsButtonState extends State<_UserActionsButton> {
               color: AppTheme.primary,
               onTap: () {
                 setState(() {
-                  Navigator.pushNamed(context, 'search');
+                  Navigator.pushNamed(context, Routes.searchScreen);
                 });
               }),
           CircularMenuItem(
               icon: Icons.dark_mode,
-              color: AppTheme.primary,
+              color: Colors.blue.shade900,
               onTap: () {
                 setState(() {});
               })

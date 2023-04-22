@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_blog/theme/app_theme.dart';
 
 class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
   const BlogAppBar({super.key});
@@ -48,7 +49,7 @@ class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
                 children: const [
                   Icon(
                     Icons.bar_chart_sharp,
-                    color: Colors.black,
+                    color: AppTheme.primary,
                   ),
                   SizedBox(width: 5),
                   Text("Mejores Docentes"),
@@ -60,8 +61,34 @@ class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
               child: Row(
                 children: const [
                   Icon(
+                    Icons.recent_actors,
+                    color: AppTheme.primary,
+                  ),
+                  SizedBox(width: 5),
+                  Text("Blogs Recientes"),
+                ],
+              ),
+            ),
+            PopupMenuItem<int>(
+              value: 2,
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.star,
+                    color: AppTheme.primary,
+                  ),
+                  SizedBox(width: 5),
+                  Text("Blogs Populares"),
+                ],
+              ),
+            ),
+            PopupMenuItem<int>(
+              value: 3,
+              child: Row(
+                children: const [
+                  Icon(
                     Icons.logout_outlined,
-                    color: Color(0xffe2001a),
+                    color: Colors.black,
                   ),
                   SizedBox(width: 5),
                   Text('Salir')

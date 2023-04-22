@@ -2,29 +2,28 @@ import 'dart:convert';
 
 class User {
   User({
-    required this.id,
-    required this.created,
-    required this.username,
-    required this.password,
     required this.email,
     required this.name,
+    required this.password,
   });
 
-  int id;
-  DateTime created;
-  String username;
-  String password;
-  String email;
-  String name;
+  final String email;
+  final String name;
+  final String password;
 
   factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
 
+  String toRawJson() => json.encode(toJson());
+
   factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        created: DateTime.parse(json["created"]),
-        username: json["username"],
-        password: json["password"],
         email: json["email"],
         name: json["name"],
+        password: json["password"],
       );
+
+  Map<String, dynamic> toJson() => {
+        "email": email,
+        "name": name,
+        "password": password,
+      };
 }
