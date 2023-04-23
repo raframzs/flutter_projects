@@ -10,6 +10,7 @@ class User {
   final String email;
   final String name;
   final String password;
+  String? id;
 
   factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
 

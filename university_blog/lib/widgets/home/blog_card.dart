@@ -1,9 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:like_button/like_button.dart';
-import 'package:university_blog/models/blog.dart';
+import 'package:provider/provider.dart';
+
+import 'package:university_blog/models/models.dart';
+import 'package:university_blog/providers/providers.dart';
 import 'package:university_blog/theme/app_theme.dart';
 import 'package:university_blog/ui/separators.dart';
 
@@ -16,6 +19,11 @@ class BlogCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UsersProvider usersProvider = Provider.of<UsersProvider>(context);
+    final CursesProvider cursesProvider = Provider.of<CursesProvider>(context);
+    final TeachersProvider teachersProvider =
+        Provider.of<TeachersProvider>(context);
+    Curse curse = cursesProvider.getCurse(blog.curse);
     return Container(
       margin: const EdgeInsets.all(20),
       child: ClipRRect(
@@ -45,7 +53,7 @@ class BlogCard extends StatelessWidget {
                   ),
                   Separators.separatorH(5),
                   Text(
-                    blog.user,
+                    usersProvider.getName(blog.user),
                   )
                 ],
               ),
@@ -71,7 +79,7 @@ class BlogCard extends StatelessWidget {
                     style: TextStyle(color: Colors.black54),
                   ),
                   Separators.separatorH(5),
-                  Text(blog.curse),
+                  Text(curse.name),
                 ],
               ),
 
@@ -82,12 +90,11 @@ class BlogCard extends StatelessWidget {
                     style: TextStyle(color: Colors.black54),
                   ),
                   Separators.separatorH(5),
-                  const Text('Ricardo Santa'),
+                  Text(teachersProvider.getName(curse.teacher)),
                 ],
               ),
               Row(
                 children: [
-                  Text(DateFormat('yyyy-MM-dd – kk:mm').format(blog.created)),
                   const Spacer(),
                   LikeButton(
                       circleColor: const CircleColor(

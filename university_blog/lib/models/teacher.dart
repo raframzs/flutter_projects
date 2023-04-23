@@ -14,6 +14,7 @@ class Teacher {
   final String master;
   final String profession;
   final int seniorityYears;
+  String? id;
 
   factory Teacher.fromRawJson(String str) => Teacher.fromJson(json.decode(str));
 

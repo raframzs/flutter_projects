@@ -1,10 +1,9 @@
 import 'package:circular_menu/circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:university_blog/models/blog.dart';
 
-import 'package:university_blog/theme/app_theme.dart';
 import '../providers/providers.dart';
+import '../theme/app_theme.dart';
 import '../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {

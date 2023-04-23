@@ -14,6 +14,7 @@ class Curse {
   final String level;
   final String name;
   final String teacher;
+  String? id;
 
   factory Curse.fromRawJson(String str) => Curse.fromJson(json.decode(str));
 

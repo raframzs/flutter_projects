@@ -20,4 +20,20 @@ class InputDecorations {
           color: university,
         ));
   }
+
+  static InputDecoration createInputDecoration({
+    required String hintText,
+    required String labelText,
+    required IconData icon,
+  }) {
+    return InputDecoration(
+        border: InputBorder.none,
+        hintText: hintText,
+        labelText: labelText,
+        labelStyle: const TextStyle(color: Colors.grey),
+        prefixIcon: Icon(
+          icon,
+          color: university,
+        ));
+  }
 }

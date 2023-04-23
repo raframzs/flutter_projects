@@ -15,7 +15,17 @@ class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => BlogsProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => BlogsProvider()),
+        ChangeNotifierProvider(
+          create: (context) => UsersProvider(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+            create: (context) => TeachersProvider(), lazy: false),
+        ChangeNotifierProvider(
+            create: (context) => CursesProvider(), lazy: false),
+      ],
       child: const MyApp(),
     );
   }
@@ -29,7 +39,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.getTheme(),
-      initialRoute: Routes.homeScreen,
+      initialRoute: Routes.loginScreen,
       routes: {
         Routes.homeScreen: (context) => const HomeScreen(),
         Routes.loginScreen: (context) => const LoginScreen(),
