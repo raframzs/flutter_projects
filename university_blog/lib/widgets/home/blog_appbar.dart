@@ -11,18 +11,19 @@ class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
         children: const [
           Icon(
             Icons.chat,
-            size: 30,
+            size: 35,
           ),
           SizedBox(
             width: 5,
           ),
           Text(
             'UNI',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
           ),
           Text(
             'BLOG',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.black, fontSize: 22),
           )
         ],
       ),

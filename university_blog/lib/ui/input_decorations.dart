@@ -34,6 +34,7 @@ class InputDecorations {
         prefixIcon: Icon(
           icon,
           color: university,
+          size: 30,
         ));
   }
 }

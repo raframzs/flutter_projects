@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:university_blog/models/user.dart';
+import 'package:university_blog/theme/app_theme.dart';
 
 import '../providers/providers.dart';
 import '../ui/ui.dart';
@@ -91,52 +94,88 @@ class _LoginForm extends StatelessWidget {
                   icon: Icons.password),
             ),
             Separators.separatorV(30),
-            _LoginButton(loginForm: loginForm)
+            _LoginButton(loginProvider: loginForm)
           ],
         ));
   }
 }
 
-class _LoginButton extends StatelessWidget {
+class _LoginButton extends StatefulWidget {
   const _LoginButton({
-    required this.loginForm,
+    required this.loginProvider,
   });
 
-  final LoginProvider loginForm;
+  final LoginProvider loginProvider;
 
   @override
+  State<_LoginButton> createState() => _LoginButtonState();
+}
+
+class _LoginButtonState extends State<_LoginButton> {
+  bool error = false;
+  @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      onPressed: loginForm.isLoading
-          ? null
-          : () async {
-              FocusScope.of(context).unfocus();
-              if (loginForm.isValidForm()) {
-                loginForm.isLoading = true;
-                await Future.delayed(const Duration(seconds: 2));
-                // ignore: use_build_context_synchronously
-                Navigator.pushReplacementNamed(context, Routes.homeScreen);
-              }
-            },
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 0,
-      disabledColor: Colors.grey,
-      color: const Color(0xffe2001a),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-        child: loginForm.isLoading
-            ? const SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(
-                  color: Color(0xffe2001a),
-                ),
+    UsersProvider usersProvider = Provider.of<UsersProvider>(context);
+    return Column(
+      children: [
+        error
+            ? Column(
+                children: [
+                  const Text(
+                    '¡El usuario o la contraseña no son correctos!',
+                    style: TextStyle(color: AppTheme.primary),
+                  ),
+                  Separators.separatorV(10)
+                ],
               )
-            : const Text(
-                'Login',
-                style: TextStyle(color: Colors.white),
-              ),
-      ),
+            : Container(),
+        MaterialButton(
+          onPressed: widget.loginProvider.isLoading
+              ? null
+              : () async {
+                  FocusScope.of(context).unfocus();
+                  if (widget.loginProvider.isValidForm()) {
+                    widget.loginProvider.isLoading = true;
+                    await Future.delayed(const Duration(milliseconds: 1500));
+                    List<User> users = usersProvider.users
+                        .where((user) =>
+                            user.email == widget.loginProvider.email &&
+                            user.password == widget.loginProvider.password)
+                        .toList();
+                    if (users.isNotEmpty) {
+                      usersProvider.logged = users[0];
+                      // ignore: use_build_context_synchronously
+                      Navigator.pushReplacementNamed(
+                          context, Routes.homeScreen);
+                    } else {
+                      // ignore: use_build_context_synchronously
+                      error = true;
+                      widget.loginProvider.isLoading = false;
+                    }
+                  }
+                },
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          elevation: 0,
+          disabledColor: Colors.grey,
+          color: const Color(0xffe2001a),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+            child: widget.loginProvider.isLoading
+                ? const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(
+                      color: Color(0xffe2001a),
+                    ),
+                  )
+                : const Text(
+                    'Login',
+                    style: TextStyle(color: Colors.white),
+                  ),
+          ),
+        ),
+      ],
     );
   }
 }

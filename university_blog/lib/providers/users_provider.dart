@@ -9,7 +9,7 @@ class UsersProvider extends ChangeNotifier {
   final String _baseUrl = 'university-blog-c1d86-default-rtdb.firebaseio.com';
   final List<User> users = [];
   bool isLoading = false;
-
+  User? logged;
   UsersProvider() {
     getUsers();
   }

@@ -29,4 +29,17 @@ class BlogsProvider extends ChangeNotifier {
     notifyListeners();
     return blogs;
   }
+
+  Future saveBlog(Blog blog) async {
+    isLoading = true;
+    notifyListeners();
+    var url = Uri.https(_baseUrl, '/blogs.json');
+    final resp = await http.post(url, body: blog.toRawJson());
+    final decodedData = json.decode(resp.body);
+    blog.id = decodedData['name'];
+    blogs.add(blog);
+    await Future.delayed(const Duration(seconds: 1));
+    isLoading = false;
+    notifyListeners();
+  }
 }

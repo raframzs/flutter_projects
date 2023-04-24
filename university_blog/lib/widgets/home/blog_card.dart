@@ -53,7 +53,7 @@ class BlogCard extends StatelessWidget {
                   ),
                   Separators.separatorH(5),
                   Text(
-                    usersProvider.getName(blog.user),
+                    usersProvider.getName(blog.user!),
                   )
                 ],
               ),

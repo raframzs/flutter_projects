@@ -5,8 +5,12 @@ import 'package:flutter/material.dart';
 class HomeBackground extends StatelessWidget {
   final Widget child;
   final Color iconsColor;
+  final IconData firstIcon;
   const HomeBackground(
-      {super.key, required this.child, required this.iconsColor});
+      {super.key,
+      required this.child,
+      required this.iconsColor,
+      required this.firstIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +19,7 @@ class HomeBackground extends StatelessWidget {
       width: double.infinity,
       child: Stack(alignment: Alignment.center, children: [
         _IconsBackground(
+          firstIcon: firstIcon,
           iconColor: iconsColor,
         ),
         child
@@ -25,7 +30,8 @@ class HomeBackground extends StatelessWidget {
 
 class _IconsBackground extends StatelessWidget {
   final Color iconColor;
-  const _IconsBackground({required this.iconColor});
+  final IconData firstIcon;
+  const _IconsBackground({required this.iconColor, required this.firstIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +40,7 @@ class _IconsBackground extends StatelessWidget {
       decoration: _redBackground(),
       child: Stack(children: [
         _IconBackground(
-            icon: Icons.chat,
+            icon: firstIcon,
             color: iconColor,
             left: 30,
             top: 90,

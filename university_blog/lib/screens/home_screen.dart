@@ -2,6 +2,7 @@ import 'package:circular_menu/circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/models.dart';
 import '../providers/providers.dart';
 import '../theme/app_theme.dart';
 import '../widgets/widgets.dart';
@@ -14,6 +15,7 @@ class HomeScreen extends StatelessWidget {
     final BlogsProvider provider = Provider.of<BlogsProvider>(context);
     if (provider.isLoading) {
       return const HomeBackground(
+          firstIcon: Icons.cloud_circle,
           iconsColor: Colors.black12,
           child: SizedBox(
             height: 100,
@@ -29,12 +31,19 @@ class HomeScreen extends StatelessWidget {
         appBar: const BlogAppBar(),
         floatingActionButton: const _UserActionsButton(),
         body: HomeBackground(
+            firstIcon: Icons.chat,
             iconsColor: AppTheme.primary,
             child: SingleChildScrollView(
               child: Column(
-                children: provider.blogs.map((e) => BlogCard(blog: e)).toList(),
+                children: _loadBlogs(provider),
               ),
             )));
+  }
+
+  List<BlogCard> _loadBlogs(BlogsProvider provider) {
+    List<Blog> blogsSorted = provider.blogs;
+    blogsSorted.sort((a, b) => a.created.compareTo(b.created));
+    return blogsSorted.reversed.toList().map((e) => BlogCard(blog: e)).toList();
   }
 }
 

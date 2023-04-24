@@ -11,13 +11,13 @@ class Blog {
       required this.user,
       this.id});
   String? id;
-  final String content;
-  final DateTime created;
-  final String curse;
-  final int dislikes;
-  final int likes;
-  final String title;
-  final String user;
+  String content;
+  DateTime created;
+  String curse;
+  int dislikes;
+  int likes;
+  String title;
+  String? user;
 
   factory Blog.fromRawJson(String str) => Blog.fromJson(json.decode(str));
 
@@ -42,4 +42,15 @@ class Blog {
         "title": title,
         "user": user,
       };
+
+  static bool isOkBlog(Blog blog) {
+    return _validString(blog.content, 80) &&
+        _validString(blog.title, 10) &&
+        _validString(blog.user, 1) &&
+        _validString(blog.curse, 1);
+  }
+
+  static bool _validString(String? txt, int minlen) {
+    return txt != null && txt.length > minlen;
+  }
 }
