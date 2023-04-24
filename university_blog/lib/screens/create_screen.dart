@@ -15,7 +15,7 @@ class CreateBlogScreen extends StatelessWidget {
       appBar: const BlogAppBar(),
       body: HomeBackground(
         firstIcon: Icons.keyboard,
-        iconsColor: AppTheme.primary,
+        isLoading: false,
         child: SingleChildScrollView(
           child: GestureDetector(
             onTap: () => FocusScope.of(context).requestFocus(FocusNode()),

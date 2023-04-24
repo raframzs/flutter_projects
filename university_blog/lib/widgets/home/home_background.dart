@@ -1,16 +1,17 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:university_blog/theme/app_theme.dart';
 
 class HomeBackground extends StatelessWidget {
   final Widget child;
-  final Color iconsColor;
+  final bool isLoading;
   final IconData firstIcon;
   const HomeBackground(
       {super.key,
       required this.child,
-      required this.iconsColor,
-      required this.firstIcon});
+      required this.firstIcon,
+      required this.isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class HomeBackground extends StatelessWidget {
       child: Stack(alignment: Alignment.center, children: [
         _IconsBackground(
           firstIcon: firstIcon,
-          iconColor: iconsColor,
+          isLoading: isLoading,
         ),
         child
       ]),
@@ -28,10 +29,37 @@ class HomeBackground extends StatelessWidget {
   }
 }
 
-class _IconsBackground extends StatelessWidget {
-  final Color iconColor;
+class _IconsBackground extends StatefulWidget {
+  final bool isLoading;
   final IconData firstIcon;
-  const _IconsBackground({required this.iconColor, required this.firstIcon});
+  const _IconsBackground({required this.firstIcon, required this.isLoading});
+
+  @override
+  State<_IconsBackground> createState() => _IconsBackgroundState();
+}
+
+class _IconsBackgroundState extends State<_IconsBackground> {
+  bool isDarkMode = false;
+  Color iconsColor = AppTheme.primary;
+  List<Color> background = [
+    const Color.fromARGB(255, 234, 231, 231),
+    Colors.grey
+  ];
+
+  swtichTheme() {
+    isDarkMode = !isDarkMode;
+    if (isDarkMode) {
+      iconsColor = Colors.white;
+      background = const [
+        Color.fromARGB(255, 64, 64, 64),
+        Color.fromARGB(255, 0, 0, 0)
+      ];
+    } else {
+      iconsColor = AppTheme.primary;
+      background = [const Color.fromARGB(255, 234, 231, 231), Colors.grey];
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,56 +68,56 @@ class _IconsBackground extends StatelessWidget {
       decoration: _redBackground(),
       child: Stack(children: [
         _IconBackground(
-            icon: firstIcon,
-            color: iconColor,
+            icon: widget.firstIcon,
+            color: iconsColor,
             left: 30,
             top: 90,
             rotation: -15),
         _IconBackground(
             icon: Icons.edit,
-            color: iconColor,
+            color: iconsColor,
             left: 300,
             top: 20,
             rotation: 20),
         _IconBackground(
             icon: Icons.account_box_outlined,
-            color: iconColor,
+            color: iconsColor,
             left: 180,
             top: 190,
             rotation: 20),
         _IconBackground(
             icon: Icons.whatshot_rounded,
-            color: iconColor,
+            color: iconsColor,
             left: 5,
             top: 290,
             rotation: 20),
         _IconBackground(
             icon: Icons.data_object_outlined,
-            color: iconColor,
+            color: iconsColor,
             left: 340,
             top: 250,
             rotation: -30),
         _IconBackground(
             icon: Icons.edgesensor_low_outlined,
-            color: iconColor,
+            color: iconsColor,
             left: 240,
             top: 400,
             rotation: 20),
         _IconBackground(
             icon: Icons.face_3_outlined,
-            color: iconColor,
+            color: iconsColor,
             left: 30,
             top: 500,
             rotation: 0),
         _IconBackground(
             icon: Icons.face_6_outlined,
-            color: iconColor,
+            color: iconsColor,
             left: 300,
             top: 600,
             rotation: 20),
         _IconBackground(
             icon: Icons.games_outlined,
-            color: iconColor,
+            color: iconsColor,
             left: 140,
             top: 650,
             rotation: 20),
@@ -97,9 +125,8 @@ class _IconsBackground extends StatelessWidget {
     );
   }
 
-  BoxDecoration _redBackground() => const BoxDecoration(
-      gradient: LinearGradient(
-          colors: [Color.fromARGB(255, 234, 231, 231), Colors.grey]));
+  BoxDecoration _redBackground() =>
+      BoxDecoration(gradient: LinearGradient(colors: background));
 }
 
 class _IconBackground extends StatelessWidget {

@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
     if (provider.isLoading) {
       return const HomeBackground(
           firstIcon: Icons.cloud_circle,
-          iconsColor: Colors.black12,
+          isLoading: true,
           child: SizedBox(
             height: 100,
             width: 100,
@@ -32,18 +32,19 @@ class HomeScreen extends StatelessWidget {
         floatingActionButton: const _UserActionsButton(),
         body: HomeBackground(
             firstIcon: Icons.chat,
-            iconsColor: AppTheme.primary,
-            child: SingleChildScrollView(
-              child: Column(
-                children: _loadBlogs(provider),
+            isLoading: false,
+            child: RefreshIndicator(
+              onRefresh: () async {
+                provider.getBlogs();
+              },
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children:
+                      provider.blogs.map((e) => BlogCard(blog: e)).toList(),
+                ),
               ),
             )));
-  }
-
-  List<BlogCard> _loadBlogs(BlogsProvider provider) {
-    List<Blog> blogsSorted = provider.blogs;
-    blogsSorted.sort((a, b) => a.created.compareTo(b.created));
-    return blogsSorted.reversed.toList().map((e) => BlogCard(blog: e)).toList();
   }
 }
 

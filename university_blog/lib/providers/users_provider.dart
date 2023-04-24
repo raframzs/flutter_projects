@@ -37,4 +37,8 @@ class UsersProvider extends ChangeNotifier {
         .email
         .replaceFirst("@unilibre.edu.co", "");
   }
+
+  logout() {
+    logged = null;
+  }
 }

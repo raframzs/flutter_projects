@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -20,11 +21,35 @@ class BlogsProvider extends ChangeNotifier {
     var url = Uri.https(_baseUrl, '/blogs.json');
     final response = await http.get(url);
     final Map<String, dynamic> blogsMap = json.decode(response.body);
+    blogs.clear();
+    List<Blog> tmp = [];
     blogsMap.forEach((key, value) {
       final tmpBlog = Blog.fromJson(value);
       tmpBlog.id = key;
-      blogs.add(tmpBlog);
+      tmp.add(tmpBlog);
     });
+    tmp.sort((a, b) => a.created.compareTo(b.created));
+    blogs.addAll(tmp.reversed.toList());
+    isLoading = false;
+    notifyListeners();
+    return blogs;
+  }
+
+  Future<List<Blog>> sortBlogsByPopular() async {
+    isLoading = true;
+    notifyListeners();
+    var url = Uri.https(_baseUrl, '/blogs.json');
+    final response = await http.get(url);
+    final Map<String, dynamic> blogsMap = json.decode(response.body);
+    blogs.clear();
+    List<Blog> tmp = [];
+    blogsMap.forEach((key, value) {
+      final tmpBlog = Blog.fromJson(value);
+      tmpBlog.id = key;
+      tmp.add(tmpBlog);
+    });
+    tmp.sort((a, b) => a.likes.compareTo(b.likes));
+    blogs.addAll(tmp.reversed.toList());
     isLoading = false;
     notifyListeners();
     return blogs;
@@ -41,5 +66,15 @@ class BlogsProvider extends ChangeNotifier {
     await Future.delayed(const Duration(seconds: 1));
     isLoading = false;
     notifyListeners();
+  }
+
+  Future<bool> updateBlog(Blog blog, bool isLiked) async {
+    var url = Uri.https(_baseUrl, '/blogs/${blog.id}.json');
+    final response = await http.put(url, body: blog.toRawJson());
+    final decodedData = response.body;
+    print(decodedData);
+    final index = blogs.indexWhere((element) => element.id == blog.id);
+    blogs[index] = blog;
+    return !isLiked;
   }
 }

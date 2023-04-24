@@ -124,10 +124,18 @@ class _CreateFormState extends State<CreateForm> {
 
             // Submmit button
             _SubmmitButton(
-                contentController: contentController,
-                curseId: curseId,
-                headerController: headerController,
-                blogsProvider: blogsProvider)
+              contentController: contentController,
+              curseId: curseId,
+              headerController: headerController,
+              blogsProvider: blogsProvider,
+              clear: () {
+                headerController.clear();
+                contentController.clear();
+                selectedCurse = 'Selecciona el Curso';
+                selectedTeacher = '';
+                setState(() {});
+              },
+            )
           ],
         ));
   }
@@ -139,19 +147,21 @@ class _SubmmitButton extends StatelessWidget {
     required this.curseId,
     required this.headerController,
     required this.blogsProvider,
+    required this.clear,
   });
 
   final TextEditingController contentController;
   final String curseId;
   final TextEditingController headerController;
   final BlogsProvider blogsProvider;
+  final Function clear;
 
   @override
   Widget build(BuildContext context) {
     UsersProvider usersProvider = Provider.of<UsersProvider>(context);
     BlogsProvider blogsProvider = Provider.of<BlogsProvider>(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50),
+      padding: const EdgeInsets.symmetric(horizontal: 120),
       child: MaterialButton(
         onPressed: () async {
           Blog blog = Blog(
@@ -166,9 +176,10 @@ class _SubmmitButton extends StatelessWidget {
           if (Blog.isOkBlog(blog)) {
             blogsProvider.saveBlog(blog);
             Navigator.pushNamed(context, Routes.homeScreen);
+            clear();
           }
         },
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         elevation: 0,
         disabledColor: Colors.grey,
         color: const Color(0xffe2001a),
@@ -184,16 +195,12 @@ class _SubmmitButton extends StatelessWidget {
                 )
               : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
+                  children: const [
+                    Icon(
                       Icons.send,
                       color: Colors.white,
+                      size: 20,
                     ),
-                    Separators.separatorH(10),
-                    const Text(
-                      'Enviar',
-                      style: TextStyle(color: Colors.white),
-                    )
                   ],
                 ),
         ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:university_blog/providers/providers.dart';
 import 'package:university_blog/theme/app_theme.dart';
 
 class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -6,6 +8,8 @@ class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlogsProvider blogsProvider = Provider.of<BlogsProvider>(context);
+    UsersProvider usersProvider = Provider.of<UsersProvider>(context);
     return AppBar(
       title: Row(
         children: const [
@@ -39,39 +43,10 @@ class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
         ),
       ),
       actions: [
-        PopupMenuButton(
-            // add icon, by default "3 dot" icon
-            // icon: Icon(Icons.book)
-            itemBuilder: (context) {
+        PopupMenuButton(itemBuilder: (context) {
           return [
             PopupMenuItem<int>(
               value: 0,
-              child: Row(
-                children: const [
-                  Icon(
-                    Icons.bar_chart_sharp,
-                    color: AppTheme.primary,
-                  ),
-                  SizedBox(width: 5),
-                  Text("Mejores Docentes"),
-                ],
-              ),
-            ),
-            PopupMenuItem<int>(
-              value: 1,
-              child: Row(
-                children: const [
-                  Icon(
-                    Icons.recent_actors,
-                    color: AppTheme.primary,
-                  ),
-                  SizedBox(width: 5),
-                  Text("Blogs Recientes"),
-                ],
-              ),
-            ),
-            PopupMenuItem<int>(
-              value: 2,
               child: Row(
                 children: const [
                   Icon(
@@ -84,7 +59,7 @@ class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
               ),
             ),
             PopupMenuItem<int>(
-              value: 3,
+              value: 1,
               child: Row(
                 children: const [
                   Icon(
@@ -99,11 +74,10 @@ class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
           ];
         }, onSelected: (value) {
           if (value == 0) {
-            print("My account menu is selected.");
+            blogsProvider.sortBlogsByPopular();
           } else if (value == 1) {
-            print("Settings menu is selected.");
-          } else if (value == 2) {
-            print("Logout menu is selected.");
+            usersProvider.logout();
+            Navigator.pushNamed(context, Routes.loginScreen);
           }
         }),
       ],

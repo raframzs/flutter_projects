@@ -70,7 +70,7 @@ class _LoginForm extends StatelessWidget {
               onChanged: (email) => loginForm.email = email,
               autocorrect: false,
               keyboardType: TextInputType.emailAddress,
-              initialValue: 'rafaela-ramirezs@unilibre.edu.co',
+              initialValue: '@unilibre.edu.co',
               decoration: InputDecorations.authInputDecoration(
                   hintText: emailHintText,
                   labelText: emailLabelText,
@@ -87,7 +87,7 @@ class _LoginForm extends StatelessWidget {
               autocorrect: false,
               obscureText: true,
               keyboardType: TextInputType.visiblePassword,
-              initialValue: '1234567',
+              //initialValue: '1234567',
               decoration: InputDecorations.authInputDecoration(
                   hintText: passwordHintText,
                   labelText: passwordLabelText,

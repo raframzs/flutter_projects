@@ -19,6 +19,7 @@ class BlogCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final BlogsProvider blogsProvider = Provider.of<BlogsProvider>(context);
     final UsersProvider usersProvider = Provider.of<UsersProvider>(context);
     final CursesProvider cursesProvider = Provider.of<CursesProvider>(context);
     final TeachersProvider teachersProvider =
@@ -54,6 +55,7 @@ class BlogCard extends StatelessWidget {
                   Separators.separatorH(5),
                   Text(
                     usersProvider.getName(blog.user!),
+                    style: const TextStyle(color: Colors.black87),
                   )
                 ],
               ),
@@ -79,7 +81,11 @@ class BlogCard extends StatelessWidget {
                     style: TextStyle(color: Colors.black54),
                   ),
                   Separators.separatorH(5),
-                  Text(curse.name),
+                  Expanded(
+                    child: Text(curse.name,
+                        maxLines: 3,
+                        style: const TextStyle(color: Colors.black87)),
+                  ),
                 ],
               ),
 
@@ -90,13 +96,21 @@ class BlogCard extends StatelessWidget {
                     style: TextStyle(color: Colors.black54),
                   ),
                   Separators.separatorH(5),
-                  Text(teachersProvider.getName(curse.teacher)),
+                  Expanded(
+                    child: Text(teachersProvider.getName(curse.teacher),
+                        maxLines: 3,
+                        style: const TextStyle(color: Colors.black87)),
+                  ),
                 ],
               ),
               Row(
                 children: [
                   const Spacer(),
                   LikeButton(
+                      onTap: (isLiked) async {
+                        blog.likes = isLiked ? blog.likes - 1 : blog.likes + 1;
+                        return blogsProvider.updateBlog(blog, isLiked);
+                      },
                       circleColor: const CircleColor(
                           start: AppTheme.primary, end: AppTheme.primary),
                       bubblesColor: const BubblesColor(
@@ -113,6 +127,11 @@ class BlogCard extends StatelessWidget {
                       }),
                   Separators.separatorH(10),
                   LikeButton(
+                      onTap: (isLiked) async {
+                        blog.dislikes =
+                            isLiked ? blog.dislikes - 1 : blog.dislikes + 1;
+                        return blogsProvider.updateBlog(blog, isLiked);
+                      },
                       size: 25,
                       circleColor: const CircleColor(
                           start: Colors.deepPurpleAccent,
