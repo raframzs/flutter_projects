@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -70,9 +69,7 @@ class BlogsProvider extends ChangeNotifier {
 
   Future<bool> updateBlog(Blog blog, bool isLiked) async {
     var url = Uri.https(_baseUrl, '/blogs/${blog.id}.json');
-    final response = await http.put(url, body: blog.toRawJson());
-    final decodedData = response.body;
-    print(decodedData);
+    await http.put(url, body: blog.toRawJson());
     final index = blogs.indexWhere((element) => element.id == blog.id);
     blogs[index] = blog;
     return !isLiked;
