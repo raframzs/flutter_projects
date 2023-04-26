@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_blog/providers/providers.dart';
 import 'package:university_blog/theme/app_theme.dart';
+import 'package:university_blog/ui/separators.dart';
 
 class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
   const BlogAppBar({super.key});
@@ -10,76 +11,85 @@ class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     BlogsProvider blogsProvider = Provider.of<BlogsProvider>(context);
     UsersProvider usersProvider = Provider.of<UsersProvider>(context);
+    AppTheme appTheme = Provider.of<AppTheme>(context);
     return AppBar(
-      title: Row(
-        children: const [
-          Icon(
-            Icons.chat,
-            size: 35,
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Text(
-            'UNI',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-          ),
-          Text(
-            'BLOG',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.black, fontSize: 22),
-          )
-        ],
+      title: GestureDetector(
+        onTap: () => blogsProvider.getBlogs(),
+        child: Row(
+          children: [
+            Icon(
+              Icons.chat,
+              size: 35,
+              color: appTheme.appBarLogoIcon,
+            ),
+            Separators.separatorH(5),
+            const Text(
+              'UNI',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+            ),
+            Text(
+              'BLOG',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: appTheme.appBarLogoColor,
+                  fontSize: 22),
+            )
+          ],
+        ),
       ),
       flexibleSpace: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: <Color>[
-                Color.fromARGB(255, 225, 40, 62),
-                Color(0xffe2001a)
-              ]),
+              colors: appTheme.appBarBackground),
         ),
       ),
       actions: [
-        PopupMenuButton(itemBuilder: (context) {
-          return [
-            PopupMenuItem<int>(
-              value: 0,
-              child: Row(
-                children: const [
-                  Icon(
-                    Icons.star,
-                    color: AppTheme.primary,
+        PopupMenuButton(
+            color: appTheme.appBarMenu,
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: appTheme.appBarMenuIcon,
+                      ),
+                      Separators.separatorH(5),
+                      Text(
+                        "Blogs Populares",
+                        style: TextStyle(color: appTheme.appBarMenuText),
+                      ),
+                    ],
                   ),
-                  SizedBox(width: 5),
-                  Text("Blogs Populares"),
-                ],
-              ),
-            ),
-            PopupMenuItem<int>(
-              value: 1,
-              child: Row(
-                children: const [
-                  Icon(
-                    Icons.logout_outlined,
-                    color: Colors.black,
+                ),
+                PopupMenuItem<int>(
+                  value: 1,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.logout_outlined,
+                        color: appTheme.appBarLogoColor,
+                      ),
+                      Separators.separatorH(5),
+                      Text('Salir',
+                          style: TextStyle(color: appTheme.appBarMenuText))
+                    ],
                   ),
-                  SizedBox(width: 5),
-                  Text('Salir')
-                ],
-              ),
-            ),
-          ];
-        }, onSelected: (value) {
-          if (value == 0) {
-            blogsProvider.sortBlogsByPopular();
-          } else if (value == 1) {
-            usersProvider.logout();
-            Navigator.pushNamed(context, Routes.loginScreen);
-          }
-        }),
+                ),
+              ];
+            },
+            onSelected: (value) {
+              if (value == 0) {
+                blogsProvider.sortBlogsByPopular();
+              } else if (value == 1) {
+                usersProvider.logout();
+                Navigator.pushNamed(context, Routes.loginScreen);
+              }
+            }),
       ],
     );
   }

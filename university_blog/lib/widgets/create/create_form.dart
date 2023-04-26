@@ -49,6 +49,7 @@ class _CreateFormState extends State<CreateForm> {
   @override
   Widget build(BuildContext context) {
     final CursesProvider cursesProvider = Provider.of<CursesProvider>(context);
+    final AppTheme appTheme = Provider.of<AppTheme>(context);
     final BlogsProvider blogsProvider = Provider.of<BlogsProvider>(context);
     final TeachersProvider teachersProvider =
         Provider.of<TeachersProvider>(context);
@@ -63,12 +64,13 @@ class _CreateFormState extends State<CreateForm> {
                     ? null
                     : 'Escribe mas: mínimo 10 caracteres';
               },
-              cursorColor: AppTheme.primary,
+              cursorColor: appTheme.gnrlColor,
               maxLength: 50,
               decoration: InputDecorations.createInputDecoration(
                   hintText: '',
                   labelText: 'Frase que describe tu experiencia',
-                  icon: Icons.sim_card_alert_outlined),
+                  icon: Icons.sim_card_alert_outlined,
+                  iconColor: appTheme.gnrlColor),
             ),
             Separators.separatorV(10),
             TextFormField(
@@ -78,13 +80,14 @@ class _CreateFormState extends State<CreateForm> {
                     ? null
                     : 'El contenido debe ser de mínimo 80 caracteres';
               },
-              cursorColor: AppTheme.primary,
+              cursorColor: appTheme.gnrlColor,
               maxLines: 4,
               maxLength: 200,
               decoration: InputDecorations.createInputDecoration(
                   hintText: '',
                   labelText: 'Cuentanos tu historía',
-                  icon: Icons.note_outlined),
+                  icon: Icons.note_outlined,
+                  iconColor: appTheme.gnrlColor),
             ),
             Separators.separatorV(10),
             Theme(
@@ -92,10 +95,10 @@ class _CreateFormState extends State<CreateForm> {
                   Theme.of(context).copyWith(dividerColor: Colors.transparent),
               child: ExpansionTile(
                   key: Key(_key.toString()),
-                  iconColor: AppTheme.primary,
+                  iconColor: appTheme.gnrlColor,
                   title: Text(
                     selectedCurse,
-                    style: const TextStyle(color: AppTheme.primary),
+                    style: TextStyle(color: appTheme.gnrlColor),
                   ),
                   subtitle: Text(
                     selectedTeacher,
@@ -158,6 +161,7 @@ class _SubmmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppTheme appTheme = Provider.of<AppTheme>(context);
     UsersProvider usersProvider = Provider.of<UsersProvider>(context);
     BlogsProvider blogsProvider = Provider.of<BlogsProvider>(context);
     return Padding(
@@ -182,7 +186,7 @@ class _SubmmitButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         elevation: 0,
         disabledColor: Colors.grey,
-        color: const Color(0xffe2001a),
+        color: appTheme.gnrlColor,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
           child: blogsProvider.isLoading
@@ -195,10 +199,10 @@ class _SubmmitButton extends StatelessWidget {
                 )
               : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Icon(
                       Icons.send,
-                      color: Colors.white,
+                      color: appTheme.createIconColor,
                       size: 20,
                     ),
                   ],

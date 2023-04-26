@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:university_blog/theme/app_theme.dart';
 import 'package:university_blog/ui/separators.dart';
@@ -11,6 +12,7 @@ class CreateBlogScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppTheme appTheme = Provider.of<AppTheme>(context);
     return Scaffold(
       appBar: const BlogAppBar(),
       body: HomeBackground(
@@ -32,10 +34,10 @@ class CreateBlogScreen extends StatelessWidget {
                     child: Column(children: [
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.chat_rounded,
                             size: 50,
-                            color: AppTheme.primary,
+                            color: appTheme.gnrlColor,
                           ),
                           Separators.separatorH(5),
                           Text(

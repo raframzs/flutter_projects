@@ -19,6 +19,7 @@ class BlogCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppTheme appTheme = Provider.of<AppTheme>(context);
     final BlogsProvider blogsProvider = Provider.of<BlogsProvider>(context);
     final UsersProvider usersProvider = Provider.of<UsersProvider>(context);
     final CursesProvider cursesProvider = Provider.of<CursesProvider>(context);
@@ -48,9 +49,9 @@ class BlogCard extends StatelessWidget {
               // NickName
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.alternate_email_sharp,
-                    color: AppTheme.primary,
+                    color: appTheme.emailLogoColor,
                   ),
                   Separators.separatorH(5),
                   Text(

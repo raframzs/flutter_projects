@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../theme/app_theme.dart';
 
 class AuthBackground extends StatelessWidget {
   final Widget child;
@@ -11,21 +14,23 @@ class AuthBackground extends StatelessWidget {
       width: double.infinity,
       child: Stack(
           alignment: Alignment.topCenter,
-          children: [const _RedBox(), const _Logo(), child]),
+          children: [const _LoginBackground(), const _Logo(), child]),
     );
   }
 }
 
-class _RedBox extends StatelessWidget {
-  const _RedBox();
+class _LoginBackground extends StatelessWidget {
+  const _LoginBackground();
 
   @override
   Widget build(BuildContext context) {
+    AppTheme appTheme = Provider.of<AppTheme>(context);
     Size size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
       height: size.height * 0.4,
-      decoration: _redBackground(),
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: appTheme.appBarBackground)),
       child: Stack(children: const [
         Positioned(
           top: 90,
@@ -55,10 +60,6 @@ class _RedBox extends StatelessWidget {
       ]),
     );
   }
-
-  BoxDecoration _redBackground() => const BoxDecoration(
-      gradient: LinearGradient(
-          colors: [Color.fromARGB(255, 225, 40, 62), Color(0xffe2001a)]));
 }
 
 class _BackgroundCircle extends StatelessWidget {

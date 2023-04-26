@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:university_blog/theme/app_theme.dart';
 
 class HomeBackground extends StatelessWidget {
@@ -39,94 +40,71 @@ class _IconsBackground extends StatefulWidget {
 }
 
 class _IconsBackgroundState extends State<_IconsBackground> {
-  bool isDarkMode = false;
-  Color iconsColor = AppTheme.primary;
-  List<Color> background = [
-    const Color.fromARGB(255, 234, 231, 231),
-    Colors.grey
-  ];
-
-  swtichTheme() {
-    isDarkMode = !isDarkMode;
-    if (isDarkMode) {
-      iconsColor = Colors.white;
-      background = const [
-        Color.fromARGB(255, 64, 64, 64),
-        Color.fromARGB(255, 0, 0, 0)
-      ];
-    } else {
-      iconsColor = AppTheme.primary;
-      background = [const Color.fromARGB(255, 234, 231, 231), Colors.grey];
-    }
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
+    AppTheme themeProvider = Provider.of<AppTheme>(context);
     return Container(
       width: double.infinity,
-      decoration: _redBackground(),
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: themeProvider.background)),
       child: Stack(children: [
         _IconBackground(
             icon: widget.firstIcon,
-            color: iconsColor,
+            color: themeProvider.iconsColor,
             left: 30,
             top: 90,
             rotation: -15),
         _IconBackground(
             icon: Icons.edit,
-            color: iconsColor,
+            color: themeProvider.iconsColor,
             left: 300,
             top: 20,
             rotation: 20),
         _IconBackground(
             icon: Icons.account_box_outlined,
-            color: iconsColor,
+            color: themeProvider.iconsColor,
             left: 180,
             top: 190,
             rotation: 20),
         _IconBackground(
             icon: Icons.whatshot_rounded,
-            color: iconsColor,
+            color: themeProvider.iconsColor,
             left: 5,
             top: 290,
             rotation: 20),
         _IconBackground(
             icon: Icons.data_object_outlined,
-            color: iconsColor,
+            color: themeProvider.iconsColor,
             left: 340,
             top: 250,
             rotation: -30),
         _IconBackground(
             icon: Icons.edgesensor_low_outlined,
-            color: iconsColor,
+            color: themeProvider.iconsColor,
             left: 240,
             top: 400,
             rotation: 20),
         _IconBackground(
             icon: Icons.face_3_outlined,
-            color: iconsColor,
+            color: themeProvider.iconsColor,
             left: 30,
             top: 500,
             rotation: 0),
         _IconBackground(
             icon: Icons.face_6_outlined,
-            color: iconsColor,
+            color: themeProvider.iconsColor,
             left: 300,
             top: 600,
             rotation: 20),
         _IconBackground(
             icon: Icons.games_outlined,
-            color: iconsColor,
+            color: themeProvider.iconsColor,
             left: 140,
             top: 650,
             rotation: 20),
       ]),
     );
   }
-
-  BoxDecoration _redBackground() =>
-      BoxDecoration(gradient: LinearGradient(colors: background));
 }
 
 class _IconBackground extends StatelessWidget {

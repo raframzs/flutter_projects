@@ -6,18 +6,19 @@ class InputDecorations {
     required String hintText,
     required String labelText,
     required IconData icon,
+    required Color color,
   }) {
     return InputDecoration(
         enabledBorder:
-            UnderlineInputBorder(borderSide: BorderSide(color: university)),
+            UnderlineInputBorder(borderSide: BorderSide(color: color)),
         focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(width: 2, color: university)),
+            borderSide: BorderSide(width: 2, color: color)),
         hintText: hintText,
         labelText: labelText,
         labelStyle: const TextStyle(color: Colors.grey),
         prefixIcon: Icon(
           icon,
-          color: university,
+          color: color,
         ));
   }
 
@@ -25,15 +26,16 @@ class InputDecorations {
     required String hintText,
     required String labelText,
     required IconData icon,
+    required Color iconColor,
   }) {
     return InputDecoration(
         border: InputBorder.none,
         hintText: hintText,
         labelText: labelText,
-        labelStyle: const TextStyle(color: Colors.grey),
+        labelStyle: TextStyle(color: iconColor),
         prefixIcon: Icon(
           icon,
-          color: university,
+          color: iconColor,
           size: 30,
         ));
   }

@@ -2,7 +2,6 @@ import 'package:circular_menu/circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/models.dart';
 import '../providers/providers.dart';
 import '../theme/app_theme.dart';
 import '../widgets/widgets.dart';
@@ -13,8 +12,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BlogsProvider provider = Provider.of<BlogsProvider>(context);
+    final AppTheme appTheme = Provider.of<AppTheme>(context);
     if (provider.isLoading) {
-      return const HomeBackground(
+      return HomeBackground(
           firstIcon: Icons.cloud_circle,
           isLoading: true,
           child: SizedBox(
@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
             width: 100,
             child: CircularProgressIndicator(
               strokeWidth: 10,
-              color: AppTheme.primary,
+              color: appTheme.loading,
             ),
           ));
     }
@@ -58,9 +58,10 @@ class _UserActionsButton extends StatefulWidget {
 class _UserActionsButtonState extends State<_UserActionsButton> {
   @override
   Widget build(BuildContext context) {
+    AppTheme themProvider = Provider.of<AppTheme>(context);
     return CircularMenu(
         alignment: Alignment.bottomRight,
-        toggleButtonColor: AppTheme.primary,
+        toggleButtonColor: themProvider.buttonColor,
         animationDuration: const Duration(milliseconds: 800),
         toggleButtonIconColor: Colors.white,
         toggleButtonMargin: 10.0,
@@ -68,7 +69,7 @@ class _UserActionsButtonState extends State<_UserActionsButton> {
         items: [
           CircularMenuItem(
               icon: Icons.add,
-              color: AppTheme.primary,
+              color: themProvider.buttonColor,
               onTap: () {
                 setState(() {
                   Navigator.pushNamed(context, Routes.createScreen);
@@ -76,7 +77,7 @@ class _UserActionsButtonState extends State<_UserActionsButton> {
               }),
           CircularMenuItem(
               icon: Icons.search,
-              color: AppTheme.primary,
+              color: themProvider.buttonColor,
               onTap: () {
                 setState(() {
                   Navigator.pushNamed(context, Routes.searchScreen);
@@ -84,8 +85,9 @@ class _UserActionsButtonState extends State<_UserActionsButton> {
               }),
           CircularMenuItem(
               icon: Icons.dark_mode,
-              color: Colors.blue.shade900,
+              color: themProvider.switchThemeButton,
               onTap: () {
+                themProvider.swtichTheme();
                 setState(() {});
               })
         ]);

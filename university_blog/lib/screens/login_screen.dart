@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_blog/models/user.dart';
@@ -13,7 +12,16 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppTheme appTheme = Provider.of<AppTheme>(context);
     return Scaffold(
+      backgroundColor: appTheme.scaffoldBackground,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          appTheme.swtichTheme();
+        },
+        backgroundColor: appTheme.switchThemeButton,
+        child: const Icon(Icons.dark_mode),
+      ),
       body: AuthBackground(
         child: SingleChildScrollView(
           child: Column(children: [
@@ -56,6 +64,7 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppTheme appTheme = Provider.of<AppTheme>(context);
     final loginForm = Provider.of<LoginProvider>(context);
     return Form(
         key: loginForm.formKey,
@@ -74,7 +83,8 @@ class _LoginForm extends StatelessWidget {
               decoration: InputDecorations.authInputDecoration(
                   hintText: emailHintText,
                   labelText: emailLabelText,
-                  icon: Icons.alternate_email_sharp),
+                  icon: Icons.alternate_email_sharp,
+                  color: appTheme.gnrlColor),
             ),
             Separators.separatorV(20),
             TextFormField(
@@ -91,7 +101,8 @@ class _LoginForm extends StatelessWidget {
               decoration: InputDecorations.authInputDecoration(
                   hintText: passwordHintText,
                   labelText: passwordLabelText,
-                  icon: Icons.password),
+                  icon: Icons.password,
+                  color: appTheme.gnrlColor),
             ),
             Separators.separatorV(30),
             _LoginButton(loginProvider: loginForm)
@@ -115,6 +126,7 @@ class _LoginButtonState extends State<_LoginButton> {
   bool error = false;
   @override
   Widget build(BuildContext context) {
+    final AppTheme appTheme = Provider.of<AppTheme>(context);
     UsersProvider usersProvider = Provider.of<UsersProvider>(context);
     return Column(
       children: [
@@ -158,15 +170,15 @@ class _LoginButtonState extends State<_LoginButton> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: 0,
           disabledColor: Colors.grey,
-          color: const Color(0xffe2001a),
+          color: appTheme.buttonColor,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
             child: widget.loginProvider.isLoading
-                ? const SizedBox(
+                ? SizedBox(
                     height: 20,
                     width: 20,
                     child: CircularProgressIndicator(
-                      color: Color(0xffe2001a),
+                      color: appTheme.loading,
                     ),
                   )
                 : const Text(
