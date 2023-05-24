@@ -71,6 +71,34 @@ class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
                   child: Row(
                     children: [
                       Icon(
+                        Icons.person,
+                        color: appTheme.appBarMenuIcon,
+                      ),
+                      Separators.separatorH(5),
+                      Text('Acerca De',
+                          style: TextStyle(color: appTheme.appBarMenuText))
+                    ],
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 2,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.attach_money_sharp,
+                        color: appTheme.appBarLogoColor,
+                      ),
+                      Separators.separatorH(5),
+                      Text('Hacer una Donación',
+                          style: TextStyle(color: appTheme.appBarMenuText))
+                    ],
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 3,
+                  child: Row(
+                    children: [
+                      Icon(
                         Icons.logout_outlined,
                         color: appTheme.appBarLogoColor,
                       ),
@@ -86,6 +114,10 @@ class BlogAppBar extends StatelessWidget with PreferredSizeWidget {
               if (value == 0) {
                 blogsProvider.sortBlogsByPopular();
               } else if (value == 1) {
+                Navigator.pushNamed(context, Routes.aboutScreen);
+              } else if (value == 2) {
+                Navigator.pushNamed(context, Routes.donate);
+              } else if (value == 3) {
                 usersProvider.logout();
                 Navigator.pushNamed(context, Routes.loginScreen);
               }

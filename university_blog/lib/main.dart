@@ -47,6 +47,8 @@ class MyApp extends StatelessWidget {
         Routes.loginScreen: (context) => const LoginScreen(),
         Routes.createScreen: (context) => const CreateBlogScreen(),
         Routes.searchScreen: (context) => const SearchScreen(),
+        Routes.aboutScreen: (context) => const AboutScreen(),
+        Routes.donate: (context) => const DonationScreen(),
       },
     );
   }
